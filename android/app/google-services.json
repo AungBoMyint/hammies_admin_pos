@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "88132190074",
+    "project_id": "hammies-mandalian",
+    "storage_bucket": "hammies-mandalian.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88132190074:android:e1924c57ebfa7a070360c3",
+        "android_client_info": {
+          "package_name": "com.example.hammies_user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "88132190074-tltau43tpigadrg7aru73i0ockan80u6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hammies_user",
+            "certificate_hash": "852de4c064b63bffb1363b9bf20a351389ca71b0"
+          }
+        },
+        {
+          "client_id": "88132190074-cpqbiaqatm8anr3p2uu5pif66tidk0ke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCceREyk-KMRhccRi4Gf3VquYHk-zWqedE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "88132190074-cpqbiaqatm8anr3p2uu5pif66tidk0ke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

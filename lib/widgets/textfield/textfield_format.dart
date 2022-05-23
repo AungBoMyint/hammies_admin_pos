@@ -1,0 +1,4 @@
+enum TextFieldFormat {
+  money,
+  normal,
+}
