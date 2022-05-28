@@ -78,7 +78,10 @@ dependencies:
   quiver: ^3.0.1+1
   responsive_framework: ^0.1.7
   printing: ^5.6.5
-  flutter_datetime_picker: ^1.5.1
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/Realank/flutter_datetime_picker.git
+      ref: master
 
 
 dev_dependencies:

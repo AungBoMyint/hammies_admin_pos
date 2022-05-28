@@ -36,7 +36,10 @@ class PosView extends StatelessWidget {
         if (controller.orderDetail == null) {
           return Scaffold(
             appBar: AppBar(
-              title: const Center(child: Text("Hammies Mandalian POS")),
+              title: const Center(child: Text("Hammies  Mandalian  POS",
+              style: TextStyle(fontSize: 18,
+              letterSpacing: 2, wordSpacing: 2,
+              fontWeight: FontWeight.bold),)),
             ),
             body: ListView(
               children: [

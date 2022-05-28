@@ -53,15 +53,15 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                 style: const pw.TextStyle(
                   fontSize: 8,
                 )),
-            pw.Text("address: 33-44,HninSi Street",
+            pw.Text("Address: Mandalay",
                 style: const pw.TextStyle(
                   fontSize: 8,
                 )),
-            pw.Text("phone: 09987898765",
+            pw.Text("Phone: 09975114498",
                 style: const pw.TextStyle(
                   fontSize: 8,
                 )),
-            pw.Text("email: hammies@gmail.com",
+            pw.Text("Email: hammiesmandalian@gmail.com",
                 style: const pw.TextStyle(
                   fontSize: 8,
                 )),
@@ -75,39 +75,53 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                 pw.TableRow(
                     verticalAlignment: pw.TableCellVerticalAlignment.middle,
                     children: [
-                      pw.Text("Qty",
-                          textAlign: pw.TextAlign.center,
-                          style: pw.TextStyle(
-                            fontWeight: pw.FontWeight.bold,
-                            font: robotoBold,
-                            fontSize: 10,
-                          )),
+
                       pw.Text("Item",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                             fontWeight: pw.FontWeight.bold,
                             font: robotoBold,
-                            fontSize: 10,
+                            fontSize: 8,
                           )),
+
+                      pw.Text("Qty",
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                            fontWeight: pw.FontWeight.bold,
+                            font: robotoBold,
+                            fontSize: 8,
+                          )),
+
                       pw.Text("Price",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                             fontWeight: pw.FontWeight.bold,
                             font: robotoBold,
-                            fontSize: 10,
+                            fontSize: 8,
                           )),
                       pw.Text("Total",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                             fontWeight: pw.FontWeight.bold,
                             font: robotoBold,
-                            fontSize: 10,
+                            fontSize: 8,
                           )),
                     ]),
                 for (var item in widget.orderItem.itemIdList) ...[
                   pw.TableRow(
                     verticalAlignment: pw.TableCellVerticalAlignment.middle,
                     children: [
+
+                      pw.Expanded(
+                          child: pw.Text(
+                        item.name,
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                          font: robotoLight,
+                          fontSize: 8,
+                        ),
+                      )),
+
                       pw.Expanded(
                         child: pw.Text(
                           "${item.count}",
@@ -116,35 +130,27 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
                             font: robotoLight,
-                            fontSize: 10,
+                            fontSize: 8,
                           ),
                         ),
                       ),
+
                       pw.Expanded(
                           child: pw.Text(
-                        item.name,
+                        "${item.price} Ks",
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: robotoLight,
-                          fontSize: 10,
+                          fontSize: 8,
                         ),
                       )),
                       pw.Expanded(
                           child: pw.Text(
-                        "${item.price}ks",
+                        "${(item.price) * (item.count!)} Ks",
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           font: robotoLight,
-                          fontSize: 10,
-                        ),
-                      )),
-                      pw.Expanded(
-                          child: pw.Text(
-                        "${(item.price) * (item.count!)}ks",
-                        textAlign: pw.TextAlign.center,
-                        style: pw.TextStyle(
-                          font: robotoLight,
-                          fontSize: 10,
+                          fontSize: 8,
                         ),
                       )),
                     ],
@@ -160,13 +166,13 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                 verticalAlignment: pw.TableCellVerticalAlignment.middle,
                 children: [
                   pw.Expanded(
-                    child: pw.Text("TOTAL",
+                    child: pw.Text("Total",
                         overflow: pw.TextOverflow.clip,
                         maxLines: 1,
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           fontWeight: pw.FontWeight.bold,
-                          fontSize: 14,
+                          fontSize: 8,
                         )),
                   ),
                   pw.Expanded(
@@ -176,11 +182,11 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                     child: pw.Text(""),
                   ),
                   pw.Expanded(
-                    child: pw.Text("${widget.orderItem.total}ks",
+                    child: pw.Text("${widget.orderItem.total} Ks",
                         textAlign: pw.TextAlign.center,
                         style: pw.TextStyle(
                           fontWeight: pw.FontWeight.bold,
-                          fontSize: 14,
+                          fontSize: 8,
                         )),
                   ),
                 ],
@@ -199,17 +205,17 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
-                          "Pay:  ${widget.orderItem.pay}ks",
+                          "Pay:  ${widget.orderItem.pay} Ks",
                           textAlign: pw.TextAlign.right,
                           style: const pw.TextStyle(
-                            fontSize: 12,
+                            fontSize: 8,
                           ),
                         ),
                         pw.Text(
-                          "Change:  ${widget.orderItem.change}ks",
+                          "Change:  ${widget.orderItem.change} Ks",
                           textAlign: pw.TextAlign.right,
                           style: const pw.TextStyle(
-                            fontSize: 12,
+                            fontSize: 8,
                           ),
                         ),
                       ]),
@@ -222,13 +228,13 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                 style: pw.TextStyle(
                   fontWeight: pw.FontWeight.bold,
                   font: oleBold,
-                  fontSize: 12,
+                  fontSize: 8,
                 )),
             pw.Text(
               DateFormat("EEEE, dd MMM y kk:mm").format(DateTime.now()),
               textAlign: pw.TextAlign.center,
               style: const pw.TextStyle(
-                fontSize: 12,
+                fontSize: 8,
               ),
             ),
           ]);
@@ -250,6 +256,7 @@ class _OrderPrintViewState extends State<OrderPrintView> {
               color: Colors.black,
               fontSize: 16,
               wordSpacing: 2,
+              fontWeight: FontWeight.bold,
               letterSpacing: 1),
         ),
         leading: const BackButton(color: Colors.black),
