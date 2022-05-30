@@ -21,17 +21,17 @@ class YearlyRevenue extends StatelessWidget {
                   child: Row(
                     children: [
                       CustomCardForSales(
-                        headTitleText: "${DateTime.now().year} အမြတ်",
+                        headTitleText: "${DateTime.now().year} အမွတျ",
                         color: Colors.red,
                         total: "${_controller.getCurrentYearProfit()} ကျပ်",
                       ),
                       CustomCardForSales(
-                        headTitleText: "${DateTime.now().year} ဝင်ငွေ",
+                        headTitleText: "${DateTime.now().year} ဝငျငှေ",
                         color: Colors.green,
                         total: "${_controller.getCurrentYearRevenue()} ကျပ်",
                       ),
                       CustomCardForSales(
-                        headTitleText: "${DateTime.now().year} သုံးစွဲငွေ",
+                        headTitleText: "${DateTime.now().year} သုံးစှဲငှေ",
                         color: Colors.blue,
                         total: "${_controller.getCurrentYearExpend()} ကျပ်",
                       ),

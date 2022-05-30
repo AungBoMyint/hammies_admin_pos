@@ -22,19 +22,19 @@ class MonthlyRevenue extends StatelessWidget {
                   children: [
                     CustomCardForSales(
                       headTitleText:
-                          "${_controller.getMonthName(_controller.getCurrentMonthDateTime())} အမြတ်",
+                          "${_controller.getMonthName(_controller.getCurrentMonthDateTime())} အမွတျ",
                       color: Colors.red,
                       total: "${_controller.monthlyProfit()} ကျပ်",
                     ),
                     CustomCardForSales(
                       headTitleText:
-                          "${_controller.getMonthName(_controller.getCurrentMonthDateTime())} ဝင်ငွေ",
+                          "${_controller.getMonthName(_controller.getCurrentMonthDateTime())} ဝငျငှေ",
                       color: Colors.green,
                       total: "${_controller.monthlyRevenue()} ကျပ်",
                     ),
                     CustomCardForSales(
                       headTitleText:
-                          "${_controller.getMonthName(_controller.getCurrentMonthDateTime())} သုံးစွဲငွေ",
+                          "${_controller.getMonthName(_controller.getCurrentMonthDateTime())} သုံးစှဲငှေ",
                       color: Colors.blue,
                       total: "${_controller.monthlyExpend()} ကျပ်",
                     ),

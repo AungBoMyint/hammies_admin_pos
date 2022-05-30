@@ -24,17 +24,17 @@ class DailyRevenue extends StatelessWidget {
                   child: Row(
                     children: [
                       CustomCardForSales(
-                        headTitleText: "ယနေ့ အမြတ်",
+                        headTitleText: "ယနေ့ အမွတျ",
                         color: Colors.red,
                         total: "${_controller.todayProfit()} ကျပ်",
                       ),
                       CustomCardForSales(
-                        headTitleText: "ယနေ့ဝင်ငွေ",
+                        headTitleText: "ယနေ့ဝငျငှေ",
                         color: Colors.green,
                         total: "${_controller.todayRevenue()} ကျပ်",
                       ),
                       CustomCardForSales(
-                        headTitleText: "ယနေ့ သုံးစွဲငွေ",
+                        headTitleText: "ယနေ့ သုံးစှဲငှေ",
                         color: Colors.blue,
                         total: "${_controller.todayExpend()} ကျပ်",
                       ),
