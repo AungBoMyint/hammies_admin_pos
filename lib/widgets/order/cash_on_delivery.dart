@@ -35,6 +35,7 @@ class CashOnDelivery extends StatelessWidget {
                 titleStyle: TextStyle(fontSize: 12),
                 radius: 5,
                 content: purchaseDialogBox(
+                  context: context,
                     i: i,
                     total: total,
                     shipping: shipping,

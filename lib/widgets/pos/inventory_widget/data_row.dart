@@ -31,7 +31,7 @@ DataRow resuableDataRow({required ProductItem item}) {
         )
       ],
     )),*/
-    DataCell(customTableCell(item.id)),
+    
     DataCell(customTableCell(item.name)),
     DataCell(customTableCell("${item.originalQuantity}")),
     DataCell(customTableCell("${item.remainQuantity}")),
@@ -39,5 +39,6 @@ DataRow resuableDataRow({required ProductItem item}) {
     DataCell(customTableCell("${item.price * item.remainQuantity}")),
     DataCell(customTableCell("${item.originalPrice}")),
     DataCell(customTableCell("${item.originalPrice * item.remainQuantity}")),
+    DataCell(customTableCell(item.id)),
   ]);
 }

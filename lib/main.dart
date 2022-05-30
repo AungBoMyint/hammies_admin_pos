@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, widget) => ResponsiveWrapper.builder(
         ClampingScrollWrapper.builder(context, widget!),
         breakpoints: const [
-          ResponsiveBreakpoint.resize(350, name: MOBILE),
+          ResponsiveBreakpoint.resize(390, name: MOBILE),
           ResponsiveBreakpoint.autoScale(600, name: TABLET),
           ResponsiveBreakpoint.resize(800, name: DESKTOP),
           ResponsiveBreakpoint.autoScale(1700, name: 'XL'),

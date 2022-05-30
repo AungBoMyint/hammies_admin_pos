@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Condition;
 import 'package:hammies_user/screen/view/order_print/view/user_order_print_view.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../controller/home_controller.dart';
 import '../../model/real_purchase.dart';
@@ -11,8 +12,31 @@ Widget purchaseDialogBox({
   required int shipping,
   required String township,
   required List<PurchaseModel> list,
+  required BuildContext context,
 }) {
   HomeController controller = Get.find();
+  final responsiveFontSize14 = TextStyle(
+    fontSize: ResponsiveValue(context, 
+    defaultValue: 12.0, 
+    valueWhen: [
+      Condition.smallerThan(
+        name: DESKTOP,
+        value: 10.0,
+      )
+    ],
+    ).value,
+  );
+  final responsiveFontSize10 = TextStyle(
+    fontSize: ResponsiveValue(context, 
+    defaultValue: 10.0, 
+    valueWhen: [
+      Condition.smallerThan(
+        name: DESKTOP,
+        value: 6.0,
+      )
+    ],
+    ).value,
+  );
   return Column(
     children: [
       Row(
@@ -21,7 +45,7 @@ Widget purchaseDialogBox({
           // Text("Purchase Date"),
           Text(
             "၀ယ်ယူခဲ့သော နေ့ရက် - ${DateTime.tryParse(list[i].dateTime)?.day}/${DateTime.tryParse(list[i].dateTime)?.month}/${DateTime.tryParse(list[i].dateTime)?.year}",
-            style: TextStyle(fontSize: 14),
+            style: responsiveFontSize14,
           ),
         ],
       ),
@@ -130,32 +154,42 @@ Widget purchaseDialogBox({
       ),
       //Delivery Township
       Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "ပို့ဆောင်ရမည့်မြို့နယ် -",
-            style: TextStyle(fontSize: 14),
+            style: responsiveFontSize14,
           ),
-          SizedBox(width: 10),
+          //SizedBox(width: 10),
           Text(
             township,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize:  ResponsiveValue(context, 
+    defaultValue: 14.0, 
+    valueWhen: [
+      Condition.smallerThan(
+        name: DESKTOP,
+        value: 10.0,
+      )
+    ],
+    ).value, fontWeight: FontWeight.bold),
           ),
         ],
       ),
+      const SizedBox(height: 10,),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "စုစုပေါင်း",
-            style: TextStyle(fontSize: 14),
+            style: responsiveFontSize14,
           ),
           Text(
             "$total + Deli $shipping Ks",
-            style: TextStyle(fontSize: 14),
+            style: responsiveFontSize14,
           ),
         ],
       ),
+      const SizedBox(height: 10,),
       ElevatedButton(
             onPressed: () {
               //Show BlueTooth Dialog..Box....

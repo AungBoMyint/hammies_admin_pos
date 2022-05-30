@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Condition;
+import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../../controller/pos/sales_controller.dart';
 import '../../../widgets/pos/custom_card.dart';
@@ -50,7 +51,23 @@ class DailyRevenue extends StatelessWidget {
 
                 //Note For AnimateBarChart
                 Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  padding:  EdgeInsets.only(left: ResponsiveValue(context, 
+                              defaultValue: 30.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: DESKTOP,
+                                  value: 10.0,
+                                )
+                              ],
+                              ).value ?? 0, right: ResponsiveValue(context, 
+                              defaultValue: 30.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: DESKTOP,
+                                  value: 10.0,
+                                )
+                              ],
+                              ).value ?? 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -78,7 +95,15 @@ Widget noteForDailyAnimateBarChart({
 }) {
   return Row(
     children: [
-      const SizedBox(width: 20),
+       SizedBox(width: ResponsiveValue(Get.context!, 
+                              defaultValue: 20.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: MOBILE,
+                                  value: 5.0,
+                                )
+                              ],
+                              ).value ?? 0),
       CircleAvatar(
         radius: 10,
         backgroundColor: color,

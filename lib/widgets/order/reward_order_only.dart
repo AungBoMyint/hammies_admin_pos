@@ -29,11 +29,12 @@ class RewardOrderOnly extends StatelessWidget {
                 titleStyle: TextStyle(fontSize: 12),
                 radius: 5,
                 content: rewardPurchaseDialogBox(
+                  context: context,
                     i: i,
                     total: 0,
                     shipping: shipping,
                     township: townName,
-                    list: controller.getRewardOrderOnly()),
+                    list: controller.getRewardOrderOnly(),),
               );
             },
             icon: Icon(Icons.info),

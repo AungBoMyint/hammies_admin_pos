@@ -13,6 +13,7 @@ class UserOrderView extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          title: const Center(child: Text("အော်ဒါများ")),
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
@@ -21,10 +22,23 @@ class UserOrderView extends StatelessWidget {
               labelColor: Colors.grey.shade700,
               tabs: [
                 Tab(
-                  text: "Cash On Delivery",
+                  child: Text(
+                    "Cash On Delivery",
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                Tab(text: "Pre-Pay"),
-                Tab(text: "Reward"),
+                Tab(
+                  child: Text(
+                    "Pre-Pay",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "Reward",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ]),
         ),
         body: TabBarView(children: [

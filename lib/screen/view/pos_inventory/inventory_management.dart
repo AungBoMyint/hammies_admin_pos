@@ -78,7 +78,7 @@ class _InventoryManagementState extends State<InventoryManagement> {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        const Align(
+                         Align(
                           alignment: Alignment.topCenter,
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 10),
@@ -87,7 +87,15 @@ class _InventoryManagementState extends State<InventoryManagement> {
                                 "Stock Table",
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 15, 70, 17),
-                                  fontSize: 18,
+                                  fontSize: ResponsiveValue(Get.context!, 
+                              defaultValue: 18.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: DESKTOP,
+                                  value: 14.0,
+                                )
+                              ],
+                              ).value,
                                   wordSpacing: 1,
                                   letterSpacing: 1,
                                   fontWeight: FontWeight.bold,
@@ -100,14 +108,23 @@ class _InventoryManagementState extends State<InventoryManagement> {
                           scrollDirection: Axis.horizontal,
                           child: DataTable(
                             border: TableBorder.all(color: Colors.black),
-                            headingTextStyle: const TextStyle(
+                            headingTextStyle:  TextStyle(
+                              fontSize: ResponsiveValue(context, 
+                              defaultValue: 16.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: DESKTOP,
+                                  value: 12.0,
+                                )
+                              ],
+                              ).value,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                             showCheckboxColumn: false,
                             columns: <DataColumn>[
                               //DataColumn(label: customTableCell("Function")),
-                              DataColumn(label: customTableCell("Code")),
+                            
                               DataColumn(label: customTableCell("Name")),
                               DataColumn(
                                   label: customTableCell("Total Quantity")),
@@ -117,6 +134,7 @@ class _InventoryManagementState extends State<InventoryManagement> {
                               DataColumn(label: customTableCell("Selling Price Total")),
                               DataColumn(label: customTableCell("Buying Price")),
                               DataColumn(label: customTableCell("Buying Price Total")),
+                              DataColumn(label: customTableCell("Code")),
                             ],
                             rows: [
                               for (var item in _controller.items) ...[
@@ -158,13 +176,27 @@ Widget customTableCell(String text) {
       Condition.smallerThan(
           name: DESKTOP,
           value: BoxConstraints(
-            maxWidth: 100,
+            maxWidth: 60,
           ))
     ],
-    child: Text(
-      text,
-      maxLines: 5,
-      overflow: TextOverflow.ellipsis,
+    child: Padding(
+      padding: const EdgeInsets.only(top: 8,bottom: 8,left: 5,right:5,),
+      child:  Text(
+          text,
+          maxLines: 10,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: ResponsiveValue(Get.context!, 
+                              defaultValue: 16.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: DESKTOP,
+                                  value: 12.0,
+                                )
+                              ],
+                              ).value,
+          ),
+      ),
     ),
   );
 }

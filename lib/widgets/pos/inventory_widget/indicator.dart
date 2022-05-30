@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class Indicator extends StatelessWidget {
   final Color color;
@@ -21,7 +22,15 @@ class Indicator extends StatelessWidget {
     return Row(
       children: <Widget>[
         Container(
-          width: size,
+          width: ResponsiveValue(context, 
+                              defaultValue: 16.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: DESKTOP,
+                                  value: 12.0,
+                                )
+                              ],
+                              ).value,
           height: size,
           decoration: BoxDecoration(
             shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
@@ -34,7 +43,15 @@ class Indicator extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+              fontSize: ResponsiveValue(context, 
+                              defaultValue: 16.0, 
+                              valueWhen: [
+                                Condition.smallerThan(
+                                  name: DESKTOP,
+                                  value: 12.0,
+                                )
+                              ],
+                              ).value, fontWeight: FontWeight.bold, color: textColor),
         )
       ],
     );

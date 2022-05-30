@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Condition;
+import 'package:responsive_framework/responsive_framework.dart';
 
 class MenuItem {
   final String label;
@@ -27,124 +28,73 @@ class DashboardMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     var itemWidth = (Get.width / 5) - horizontalPadding;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+      //padding: EdgeInsets.symmetric(horizontal: horizontalPadding,vertical: 20,),
       width: Get.width,
-      child: Wrap(
-        // runSpacing: 10.0,
-        // spacing: 10.0,
-        // crossAxisAlignment: WrapCrossAlignment.center,
-        alignment: WrapAlignment.spaceBetween,
-        // runAlignment: WrapAlignment.center,
-
-        children: [
-          ...List.generate(items.length, (index) {
-            var item = items[index];
-            return InkWell(
+      child: GridView.builder(
+        itemCount: items.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: ResponsiveValue(context, defaultValue: 4, 
+                        valueWhen: [
+                          Condition.smallerThan(
+                            name: DESKTOP,
+                            value: 3,
+                          ),
+                          Condition.smallerThan(
+                            name: MOBILE,
+                            value: 2,
+                          )
+                        ],
+                        ).value ?? 0), 
+        itemBuilder: (context,index){
+          final item = items[index];
+          return InkWell(
               onTap: () => item.onTap(),
               child: Container(
-                width: itemWidth,
-                height: itemWidth,
+                padding: EdgeInsets.only(left: 20,),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 50,
-                    ),
                     Icon(
-                      item.icon,
-                      color: item.color,
-                      size: 100,
+                        item.icon,
+                        color: item.color,
+                        size: ResponsiveValue(context, defaultValue: 90.0, 
+                        valueWhen: [
+                          Condition.smallerThan(
+                            name: DESKTOP,
+                            value: 35.0,
+                          )
+                        ],
+                        ).value,
+                      
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Expanded(
-                      child: Text(
+                    Text(
                         item.label,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize:ResponsiveValue(context, defaultValue: 18.0, 
+                        valueWhen: [
+                          Condition.smallerThan(
+                            name: DESKTOP,
+                            value: 16.0,
+                          )
+                        ],
+                        ).value,
                           color: item.color,
                         ),
-                      ),
+                      
                     ),
                     SizedBox(
-                      height: 8.0,
+                      height: 10.0,
                     ),
                   ],
                 ),
               ),
             );
-          }),
-          // InkWell(
-          //   // onTap: () => controller.createNewOrder(),
-          //   child: Container(
-          //     width: 40.0,
-          //     height: 40.0,
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Image.network(
-          //           "https://icons.iconarchive.com/icons/flat-icons.com/square/128/cashier-icon.png",
-          //           height: 50,
-          //           width: 50,
-          //         ),
-          //         SizedBox(
-          //           height: 2.0,
-          //         ),
-          //         Text("Pos"),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // InkWell(
-          //   // onTap: () => Get.to(ProductView()),
-          //   child: Container(
-          //     width: 40.0,
-          //     height: 40.0,
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Image.network(
-          //           "https://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/128/product-icon.png",
-          //           height: 50,
-          //           width: 50,
-          //         ),
-          //         SizedBox(
-          //           height: 2.0,
-          //         ),
-          //         Text("Product"),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // InkWell(
-          //   // onTap: () => Get.to(ProductView()),
-          //   child: Container(
-          //     width: 40.0,
-          //     height: 40.0,
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Image.network(
-          //           "https://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/128/product-icon.png",
-          //           height: 50,
-          //           width: 50,
-          //         ),
-          //         SizedBox(
-          //           height: 2.0,
-          //         ),
-          //         Text("Product Category"),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-        ],
-      ),
+        },
+        ),
     );
   }
 }

@@ -41,12 +41,7 @@ class PosView extends StatelessWidget {
               letterSpacing: 2, wordSpacing: 2,
               fontWeight: FontWeight.bold),)),
             ),
-            body: ListView(
-              children: [
-                // SalesStatistic(),
-                // const SizedBox(
-                //   height: 50.0,
-                // ),
+            body: 
                 DashboardMenu(
                   items: [
                     MenuItem(
@@ -117,8 +112,8 @@ class PosView extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
+            //   ],
+            // ),
           );
         }
         //return const SizedBox(height: 0, width: 0);
