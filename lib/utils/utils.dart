@@ -1,8 +1,14 @@
+import 'dart:io';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:native_pdf_renderer/native_pdf_renderer.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../widgets/pos/button/button.dart';
+import '../widgets/show_loading/show_loading.dart';
 import 'theme.dart';
 
 
@@ -45,3 +51,36 @@ void showBlueWarnning() {
             ),
           ]));
 }
+
+
+//Save JPG into Gallery
+
+Future<void> saveImageIntoDirectory(pw.Document doc) async{
+    showSaving();
+    final tempDire = await getTemporaryDirectory();
+    final pdfByte = await doc.save();
+    final tempFile = File("${tempDire.path}/${Uuid().v1()}.pdf");
+    await tempFile.writeAsBytes(pdfByte)
+    .then((value) async{
+        final pdfFilePath = value.path;
+        final document = await PdfDocument.openFile(pdfFilePath);
+        final page = await document.getPage(1);
+    final pageImage = await page.render(width: page.width, height: page.height,
+    format: PdfPageImageFormat.jpeg,
+   // backgroundColor: 
+    );
+    debugPrint("******JPGBytes: ${pageImage!.bytes}");
+    final jpgByte = pageImage.bytes;
+     await File("${tempDire.path}/${Uuid().v1()}.jpg").writeAsBytes(jpgByte)
+     .then((value) async{
+       await ImageGallerySaver.saveFile(value.path)
+       .then((value){
+         hideSaving();
+         Get.showSnackbar(GetSnackBar(
+           message: "Saved",
+         ));
+         Future.delayed(const Duration(milliseconds: 1000),() => Get.closeCurrentSnackbar());
+       });
+     });
+    });
+  }

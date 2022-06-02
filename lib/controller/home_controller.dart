@@ -313,6 +313,7 @@ class HomeController extends GetxController {
       hideLoading();
       Get.offNamed(homeScreen);
     } catch (e) {
+      debugPrint("********$e");
       hideLoading();
     }
   }

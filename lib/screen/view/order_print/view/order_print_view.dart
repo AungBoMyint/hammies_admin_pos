@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart' hide TableRow;
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:printing/printing.dart';
-import 'package:pdf/pdf.dart';
-import 'package:flutter/widgets.dart' hide TableRow;
+import 'package:pdf/pdf.dart' hide PdfDocument;
 import 'package:pdf/widgets.dart' as pw;
 import 'package:intl/intl.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import '../../../../controller/home_controller.dart';
 import '../../../../model/order_item.dart';
-import '../../../../model/product_item.dart';
+import '../../../../utils/utils.dart';
 
 class OrderPrintView extends StatefulWidget {
   final OrderItem orderItem;
@@ -196,7 +193,7 @@ class _OrderPrintViewState extends State<OrderPrintView> {
               borderStyle: pw.BorderStyle.solid,
             ),
             pw.SizedBox(
-              //height: 50,
+             // height: 50,
               child: pw.Row(children: [
                 pw.Expanded(flex: 2, child: pw.Text("")),
                 pw.Expanded(
@@ -264,17 +261,18 @@ class _OrderPrintViewState extends State<OrderPrintView> {
       ),
       body: SafeArea(
         child: PdfPreview(
-          /* actions: [
+          allowSharing: false,
+          actions: [
             PdfPreviewAction(
                 icon: const Icon(
-                  Icons.print,
+                  Icons.save,
                   color: Colors.white,
                 ),
-                onPressed: (_, __, ___) async {
-                  await Printing.layoutPdf(
-                      onLayout: (PdfPageFormat format) async => doc.save());
-                }),
-          ],*/
+                onPressed: (_, __, ___) {
+                  saveImageIntoDirectory(doc);
+                },
+              ),
+          ],
           pageFormats: {
             "57mm": PdfPageFormat(
               359.043,

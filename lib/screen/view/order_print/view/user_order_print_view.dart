@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart' hide TableRow;
 import 'package:pdf/widgets.dart' as pw;
 import 'package:intl/intl.dart';
 import '../../../../controller/home_controller.dart';
+import '../../../../utils/utils.dart';
 
 class UserOrderPrintView extends StatefulWidget {
   final PurchaseModel purchaseModel;
@@ -309,17 +310,18 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
       ),
       body: SafeArea(
         child: PdfPreview(
-          /* actions: [
+          allowSharing: false,
+          actions: [
             PdfPreviewAction(
                 icon: const Icon(
-                  Icons.print,
+                  Icons.save,
                   color: Colors.white,
                 ),
-                onPressed: (_, __, ___) async {
-                  await Printing.layoutPdf(
-                      onLayout: (PdfPageFormat format) async => doc.save());
-                }),
-          ],*/
+                onPressed: (_, __, ___) {
+                  saveImageIntoDirectory(doc);
+                },
+              ),
+          ],
           pageFormats: {
             "57mm": PdfPageFormat(
               359.043,
