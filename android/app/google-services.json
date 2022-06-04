@@ -7,18 +7,42 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:88132190074:android:e1924c57ebfa7a070360c3",
+        "mobilesdk_app_id": "1:88132190074:android:282db47c5dd615050360c3",
         "android_client_info": {
-          "package_name": "com.example.hammies_user"
+          "package_name": "com.kzn.hm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "88132190074-tltau43tpigadrg7aru73i0ockan80u6.apps.googleusercontent.com",
+          "client_id": "88132190074-075d7drbnpqpt331527kqeqqpfkck29s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.hammies_user",
-            "certificate_hash": "852de4c064b63bffb1363b9bf20a351389ca71b0"
+            "package_name": "com.kzn.hm",
+            "certificate_hash": "bfb0142715ddf30ff5b989d68d42c94f606ad23a"
+          }
+        },
+        {
+          "client_id": "88132190074-3g2b9thvr7fg7k5e2r1687tk35sragd7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kzn.hm",
+            "certificate_hash": "60bfd8f217a55d863e802534c16f143d80094059"
+          }
+        },
+        {
+          "client_id": "88132190074-r398qhkas0ia66nheugfm5nbbldgkeca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kzn.hm",
+            "certificate_hash": "c52da3a5a82ce5f1adfbceb86b30a91cbeb6de6e"
+          }
+        },
+        {
+          "client_id": "88132190074-s8rkjk1f42c8isk5k9h15nl93kv216t4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kzn.hm",
+            "certificate_hash": "e17daea38df4a03ba76494856f8094fe5d27d6f8"
           }
         },
         {
@@ -37,6 +61,14 @@
             {
               "client_id": "88132190074-cpqbiaqatm8anr3p2uu5pif66tidk0ke.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "88132190074-i0q3of60ague5do017s7l751sofj1c75.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kzn.hm",
+                "app_store_id": "1626020332"
+              }
             }
           ]
         }

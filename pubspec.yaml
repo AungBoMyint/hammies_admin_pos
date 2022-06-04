@@ -67,7 +67,7 @@ dependencies:
   fl_chart: ^0.50.1
   freezed: ^1.1.1
   freezed_annotation: ^1.1.0
-  json_annotation: ^4.4.0
+  json_annotation: ^4.5.0
   syncfusion_flutter_charts: ^20.1.48
   colours: ^0.0.2
   google_fonts: ^2.3.1
@@ -95,10 +95,10 @@ dev_dependencies:
 
   flutter_test:
     sdk: flutter
-  #flutter_launcher_icons: "^0.9.2"
+
 
 flutter_icons:
-  image_path: "assets/shopping.jpeg"
+  image_path: "assets/logo.png"
   android: true
   ios: true
 

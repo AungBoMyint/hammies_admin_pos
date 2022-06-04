@@ -1,12 +1,15 @@
 import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hammies_user/screen/view/reward_products/view/reward_product_view.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
+// import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
+import 'package:hammies_user/widgets/dashboard_menu/dashboard_menu.dart'  as mI;
+
 
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../controller/home_controller.dart';
 import '../../../../routes/routes.dart';
 import '../../../../utils/theme.dart';
@@ -41,28 +44,28 @@ class PosView extends StatelessWidget {
               letterSpacing: 2, wordSpacing: 2,
               fontWeight: FontWeight.bold),)),
             ),
-            body: 
+            body:
                 DashboardMenu(
                   items: [
-                    MenuItem(
+                    mI.MenuItem(
                       icon: FontAwesomeIcons.cashRegister,
                       label: "POS",
                       color: theme.primary,
                       onTap: () => controller.createNewOrder(),
                     ),
-                    MenuItem(
+                    mI.MenuItem(
                       icon: FontAwesomeIcons.boxOpen,
                       label: "ကုန်ပစ္စည်းများ",
                       color: Colors.green,
                       onTap: () => Get.toNamed(productUrl),
                     ),
-                    MenuItem(
+                    mI.MenuItem(
                       icon: FontAwesomeIcons.boxOpen,
                       label: "ဆုလာဘ်အတွက် ကုန်ပစ္စည်းများ",
                       color: Colors.green,
                       onTap: () => Get.toNamed(rewardProductUrl),
                     ),
-                    MenuItem(
+                    mI.MenuItem(
                       icon: FontAwesomeIcons.boxes,
                       label: "ကုန်ပစ္စည်း အုပ်စုများ",
                       color: Colors.orange,
@@ -107,7 +110,7 @@ class PosView extends StatelessWidget {
                       label: "အကူအညီ",
                       color: Colors.blue,
                       onTap: () => {
-                        launcher.launch("tel:+95-954-055-655")
+                        launch("tel://09954055655"),
                       }, //Get.to(HelpView()),
                     ),
                   ],

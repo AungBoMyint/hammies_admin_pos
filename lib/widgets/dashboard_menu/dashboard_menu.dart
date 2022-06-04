@@ -32,7 +32,7 @@ class DashboardMenu extends StatelessWidget {
       width: Get.width,
       child: GridView.builder(
         itemCount: items.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: ResponsiveValue(context, defaultValue: 4, 
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: ResponsiveValue(context, defaultValue: 4,
                         valueWhen: [
                           Condition.smallerThan(
                             name: DESKTOP,
@@ -49,7 +49,7 @@ class DashboardMenu extends StatelessWidget {
           return InkWell(
               onTap: () => item.onTap(),
               child: Container(
-                padding: EdgeInsets.only(left: 20,),
+                padding: EdgeInsets.only(left: 0,),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,

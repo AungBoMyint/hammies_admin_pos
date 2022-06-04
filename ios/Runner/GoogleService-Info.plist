@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>88132190074-i0q3of60ague5do017s7l751sofj1c75.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.88132190074-i0q3of60ague5do017s7l751sofj1c75</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>88132190074-075d7drbnpqpt331527kqeqqpfkck29s.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCQsjnTwB4jjwh955dBYuZJG89f4rNKqJ4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>88132190074</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.kzn.hm</string>
+	<key>PROJECT_ID</key>
+	<string>hammies-mandalian</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hammies-mandalian.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:88132190074:ios:618512339ae863000360c3</string>
+</dict>
+</plist>

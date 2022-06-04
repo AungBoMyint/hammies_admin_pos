@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           body: views[_index],
           bottomNavigationBar: Container(
-            height: 84,
+            height: 115,
             child: Column(
               children: [
                 Container(
