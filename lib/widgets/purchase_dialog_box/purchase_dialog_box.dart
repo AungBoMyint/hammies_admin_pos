@@ -4,6 +4,7 @@ import 'package:hammies_user/screen/view/order_print/view/user_order_print_view.
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../controller/home_controller.dart';
+import '../../data/constant.dart';
 import '../../model/real_purchase.dart';
 
 Widget purchaseDialogBox({
@@ -191,6 +192,9 @@ Widget purchaseDialogBox({
       ),
       const SizedBox(height: 10,),
       ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: homeIndicatorColor,
+        ),
             onPressed: () {
               //Show BlueTooth Dialog..Box....
               Get.to(UserOrderPrintView(
@@ -199,7 +203,7 @@ Widget purchaseDialogBox({
                 shipping: shipping, 
                 township: township,));
             },
-            child: Text("Print"),
+            child: Text("See As Photo"),
           ),
     ],
   );

@@ -78,16 +78,14 @@ class _ExStreamRadioState extends State<ExStreamRadio> {
                               selectedValue = null;
                               setState(() {});
                               Input.set(widget.id, selectedValue);
-                              if (widget.onChanged != null)
-                                widget.onChanged(selectedValue!);
+                              widget.onChanged(selectedValue!);
                               return;
                             }
                             selectedValue = item.category;
                             setState(() {});
 
                             Input.set(widget.id, selectedValue);
-                            if (widget.onChanged != null)
-                              widget.onChanged(selectedValue!);
+                            widget.onChanged(selectedValue!);
                           },
                           child: Container(
                             padding: EdgeInsets.only(

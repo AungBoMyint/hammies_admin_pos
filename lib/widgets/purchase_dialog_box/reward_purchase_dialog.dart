@@ -3,6 +3,7 @@ import 'package:get/get.dart' hide Condition;
 import 'package:responsive_framework/responsive_framework.dart';
 
 import '../../controller/home_controller.dart';
+import '../../data/constant.dart';
 import '../../model/real_purchase.dart';
 import '../../screen/view/order_print/view/user_order_print_view.dart';
 
@@ -120,7 +121,7 @@ Widget rewardPurchaseDialogBox({
                       width: 25,
                     ),
                     Text(
-                      "${rewardProduct.requirePoint} points x  ${rewardProduct.count!} ထည်",
+                      "${rewardProduct.requirePoint} points x  ${rewardProduct.count!}",
                       style: TextStyle(fontSize: 10),
                     ),
                   ],
@@ -166,6 +167,9 @@ Widget rewardPurchaseDialogBox({
         ],
       ),
       ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: homeIndicatorColor,
+        ),
         onPressed: () {
           //Show BlueTooth Dialog..Box....
           Get.to(UserOrderPrintView(
@@ -175,7 +179,7 @@ Widget rewardPurchaseDialogBox({
             township: township,
           ));
         },
-        child: Text("Print"),
+        child: Text("See As Photo"),
       ),
     ],
   );

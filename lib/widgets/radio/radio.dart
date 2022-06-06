@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../utils/theme.dart';
@@ -73,8 +72,7 @@ class _ExRadioState extends State<ExRadio> {
                     onTap: () {
                       selectedValue = item["value"];
                       setState(() {});
-                      if (widget.onChanged != null)
-                        widget.onChanged(selectedValue!);
+                      widget.onChanged(selectedValue!);
                       Input.set(widget.id, selectedValue);
                     },
                     child: Container(
@@ -137,8 +135,7 @@ class _ExRadioState extends State<ExRadio> {
                     onTap: () {
                       selectedValue = item["value"].toString();
                       setState(() {});
-                      if (widget.onChanged != null)
-                        widget.onChanged(selectedValue!);
+                      widget.onChanged(selectedValue!);
                       Input.set(widget.id, selectedValue);
                     },
                     child: Container(

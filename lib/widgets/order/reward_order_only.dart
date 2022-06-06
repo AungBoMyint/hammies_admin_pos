@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:hammies_user/controller/home_controller.dart';
 import 'package:hammies_user/widgets/purchase_dialog_box/reward_purchase_dialog.dart';
 
-import '../purchase_dialog_box/purchase_dialog_box.dart';
 
 class RewardOrderOnly extends StatelessWidget {
   const RewardOrderOnly({Key? key}) : super(key: key);

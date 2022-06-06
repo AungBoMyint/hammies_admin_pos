@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Condition;
 import 'package:responsive_framework/responsive_framework.dart';
 
-class MenuItem {
+class CustomMenuItem {
   final String label;
   final IconData icon;
   final Color color;
   final Function onTap;
 
-  MenuItem({
+  CustomMenuItem({
     required this.label,
     required this.icon,
     required this.color,
@@ -17,7 +17,7 @@ class MenuItem {
 }
 
 class DashboardMenu extends StatelessWidget {
-  final List<MenuItem> items;
+  final List<CustomMenuItem> items;
   final double horizontalPadding;
   DashboardMenu({
     this.items = const [],

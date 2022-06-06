@@ -30,7 +30,7 @@ class LoginView extends StatelessWidget {
                       Radius.circular(10),
                     ),
                     child: Image.asset(
-                      "assets/hammies.jpg",
+                      "assets/logo.png",
                       width: Get.width / 3,
                     ),
                   ),

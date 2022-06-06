@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,9 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hammies_user/model/real_purchase.dart';
 import 'package:hammies_user/model/reward_product.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:printing/printing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:pdf/widgets.dart' as pw;
 import '../constant/constant.dart';
 import '../data/constant.dart';
 import '../model/order_item.dart';
@@ -91,7 +88,6 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit(); // SharedPreference to Stroe
-    image = await imageFromAssetBundle("assets/hammies.jpg");
     oleoBold = await rootBundle.load("fonts/OleoScriptSwashCaps-Bold.ttf");
     oleoRegular =
         await rootBundle.load("fonts/OleoScriptSwashCaps-Regular.ttf");

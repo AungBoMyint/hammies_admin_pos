@@ -4,10 +4,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../model/pos/chart_data.dart';
-import '../../model/pos/coupon.dart';
 import '../../model/pos/daily_order_data.dart';
 import '../../model/pos/monthly_data.dart';
 import '../../model/pos/order_and_total.dart';

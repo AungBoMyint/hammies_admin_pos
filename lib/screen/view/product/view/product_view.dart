@@ -128,16 +128,14 @@ class _ProductViewState extends State<ProductView> {
                             }
                           }
 
-                          if (controller.search != null) {
-                            log("search >>> ${controller.search}");
-                            if (controller.search.isNotEmpty &&
-                                !item.name
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(
-                                        controller.search.toLowerCase())) {
-                              return Container();
-                            }
+                          log("search >>> ${controller.search}");
+                          if (controller.search.isNotEmpty &&
+                              !item.name
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(
+                                      controller.search.toLowerCase())) {
+                            return Container();
                           }
 
                           return InkWell(

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kzn.yu">
+    package="com.kzn.hm">
    <application
-        android:label="Hammies Admin POS"
+        android:label="HM Admin POS"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">

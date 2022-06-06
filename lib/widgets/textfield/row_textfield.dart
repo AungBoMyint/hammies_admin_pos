@@ -147,13 +147,12 @@ String formatText(String text) {
                 ),
                 onChanged: (text) {
                   Input.set(widget.id, text);
-                  if (widget.onChanged != null) return widget.onChanged(text);
+ return widget.onChanged(text);
                 },
                 onSubmitted: (text) {
                   text = formatText(text);
                   Input.set(widget.id, text);
-                  if (widget.onSubmitted != null)
-                    return widget.onSubmitted(text);
+                  return widget.onSubmitted(text);
                 },
               ),
             ),

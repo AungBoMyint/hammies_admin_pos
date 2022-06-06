@@ -2,10 +2,8 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hammies_user/screen/view/reward_products/view/reward_product_view.dart';
-import 'package:url_launcher/url_launcher.dart' as launcher;
 // import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
-import 'package:hammies_user/widgets/dashboard_menu/dashboard_menu.dart'  as mI;
+import 'package:hammies_user/widgets/dashboard_menu/dashboard_menu.dart';
 
 
 import 'package:get/get.dart';
@@ -17,9 +15,7 @@ import '../../../../widgets/dashboard_menu/dashboard_menu.dart';
 import '../../../../widgets/pos/button/button.dart';
 import '../../../../widgets/search_bar/search_bar.dart';
 import '../../pos_checkout/view/pos_checkout_view.dart';
-import '../../product/view/product_view.dart';
 import '../controller/pos_controller.dart';
-import '../widget/sales_statistic.dart';
 
 class PosView extends StatelessWidget {
   const PosView({Key? key}) : super(key: key);
@@ -47,65 +43,65 @@ class PosView extends StatelessWidget {
             body:
                 DashboardMenu(
                   items: [
-                    mI.MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.cashRegister,
                       label: "POS",
                       color: theme.primary,
                       onTap: () => controller.createNewOrder(),
                     ),
-                    mI.MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.boxOpen,
                       label: "ကုန်ပစ္စည်းများ",
                       color: Colors.green,
                       onTap: () => Get.toNamed(productUrl),
                     ),
-                    mI.MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.boxOpen,
                       label: "ဆုလာဘ်အတွက် ကုန်ပစ္စည်းများ",
                       color: Colors.green,
                       onTap: () => Get.toNamed(rewardProductUrl),
                     ),
-                    mI.MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.boxes,
                       label: "ကုန်ပစ္စည်း အုပ်စုများ",
                       color: Colors.orange,
                       onTap: () => Get.toNamed(
                           productCategoryUrl), // Get.to(ProductCategoryView()),
                     ),
-                    MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.shoppingBag,
                       label: "အော်ဒါများ",
                       color: Colors.orange,
                       onTap: () => Get.toNamed(
                           userOrderUrl), // Get.to(ProductCategoryView()),
                     ),
-                    MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.dollarSign,
                       label: "အသုံးစရိတ် အုပ်စုများ",
                       color: Colors.orange,
                       onTap: () => Get.toNamed(
                           expendCategoryUrl), // Get.to(ProductCategoryView()),
                     ),
-                    MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.searchDollar,
                       label: "အသုံးစရိတ်",
                       color: Colors.orange,
                       onTap: () => Get.toNamed(
                           expendUrl), // Get.to(ProductCategoryView()),
                     ),
-                    MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.boxes,
                       label: "ကုန်ပစ္စည်း စာရင်း",
                       color: Colors.purple,
                       onTap: () => Get.toNamed(inventoryUrl),
                     ),
-                    MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.chartBar,
                       label: "အရောင်း တိုးတက်မှု ဇယား",
                       color: Colors.purple,
                       onTap: () => Get.toNamed(salesUrl),
                     ),
-                    MenuItem(
+                    CustomMenuItem(
                       icon: FontAwesomeIcons.phoneAlt,
                       label: "အကူအညီ",
                       color: Colors.blue,
@@ -124,7 +120,7 @@ class PosView extends StatelessWidget {
           //For pos order, product list to add to cart
           appBar: AppBar(
             leading: IconButton(
-              onPressed: () => controller.startScan(),
+              onPressed: () => {},
               icon: const Icon(
                 FontAwesomeIcons.barcode,
                 size: 30,
@@ -304,15 +300,13 @@ class PosView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         var item = homeController.items[index];
 
-                        if (controller.search != null) {
-                          log("search >>> ${controller.search}");
-                          if (controller.search.isNotEmpty &&
-                              !item.name
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(controller.search.toLowerCase())) {
-                            return Container();
-                          }
+                        log("search >>> ${controller.search}");
+                        if (controller.search.isNotEmpty &&
+                            !item.name
+                                .toString()
+                                .toLowerCase()
+                                .contains(controller.search.toLowerCase())) {
+                          return Container();
                         }
 
                         if (controller.categoryNameFilter != "All" &&
@@ -493,7 +487,7 @@ class PosView extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      "Total: ${controller.total} ကျပ်",
+                      "Total: ${controller.total.round()} ကျပ်",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,

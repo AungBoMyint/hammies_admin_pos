@@ -12,7 +12,6 @@ const buttonText = TextStyle(
 final ThemeData appThemeData = ThemeData(
   primaryColor: theme.primary,
   canvasColor: theme.primary,
-  accentColor: theme.primary,
   cardColor: theme.backgroundColor,
   primaryTextTheme: TextTheme(
     bodyText1: TextStyle(
@@ -66,8 +65,7 @@ final ThemeData appThemeData = ThemeData(
     ),
     titleTextStyle: TextStyle(
       color: theme.textColor,
-    ),
-    textTheme: TextTheme(
+    ), toolbarTextStyle: TextTheme(
       bodyText1: TextStyle(
         color: theme.textColor,
       ),
@@ -92,13 +90,13 @@ final ThemeData appThemeData = ThemeData(
       headline6: TextStyle(
         color: theme.textColor,
       ),
-    ),
+    ).bodyText2,
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: theme.primary,
     selectedItemColor: Colors.white,
     unselectedItemColor: Colors.white,
-  ),
+  ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: theme.primary),
 );
 
 class ApplicationTheme {

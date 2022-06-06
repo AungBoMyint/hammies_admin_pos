@@ -1,9 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart' hide TableRow;
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hammies_user/data/constant.dart';
 import 'package:hammies_user/model/real_purchase.dart';
-import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
-import 'package:flutter/widgets.dart' hide TableRow;
 import 'package:pdf/widgets.dart' as pw;
 import 'package:intl/intl.dart';
 import '../../../../controller/home_controller.dart';
@@ -28,7 +30,8 @@ class UserOrderPrintView extends StatefulWidget {
 }
 
 class _UserOrderPrintViewState extends State<UserOrderPrintView> {
-  final pw.Document doc = pw.Document();
+  Uint8List? imageUnitBytes;
+
 
   @override
   void initState() {
@@ -36,13 +39,16 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
     super.initState();
   }
 
-  void makePdfPage() {
+  void makePdfPage() async{
+    final pw.Document doc = pw.Document();
     HomeController _controller = Get.find();
     var oleBold = pw.Font.ttf(_controller.oleoBold);
     var oleRegular = pw.Font.ttf(_controller.oleoRegular);
     var robotoBold = pw.Font.ttf(_controller.robotoBold);
     var robotoLight = pw.Font.ttf(_controller.robotoLight);
     var today = DateFormat("ddMMMy").format(DateTime.now());
+    final byte = await rootBundle.load('assets/logo.png');
+    final image = pw.MemoryImage(byte.buffer.asUint8List());
     doc.addPage(
       pw.Page(
         pageFormat: PdfPageFormat(
@@ -54,20 +60,23 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
         build: (pw.Context context) {
           return pw.ListView(children: [
             pw.SizedBox(height: 5),
-            pw.Image(_controller.image, width: 50, height: 50),
-            pw.SizedBox(height: 2),
-            pw.Text("Hammies Mandalian",
-                style: const pw.TextStyle(
-                  fontSize: 8,
-                )),
+            pw.Image(image, width: 80, height: 80),
+            // pw.Text("Hammies Mandalian",
+            //     style: const pw.TextStyle(
+            //       fontSize: 8,
+            //     )),
+            pw.SizedBox(height: 5),
+
             pw.Text("Address: Mandalay",
                 style: const pw.TextStyle(
                   fontSize: 8,
                 )),
-            pw.Text("Phone: 09975114498",
+            pw.SizedBox(height: 5),
+            pw.Text("Phone: 099 7511 4498",
                 style: const pw.TextStyle(
                   fontSize: 8,
                 )),
+            pw.SizedBox(height: 5),
             pw.Text("Email: hammiesmandalian@gmail.com",
                 style: const pw.TextStyle(
                   fontSize: 8,
@@ -82,6 +91,7 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
                   pw.TableRow(
                       verticalAlignment: pw.TableCellVerticalAlignment.middle,
                       children: [
+                        pw.SizedBox(width: 2),
 
                         pw.Text("Item",
                             textAlign: pw.TextAlign.center,
@@ -114,21 +124,24 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
                               fontSize: 8,
                             )),
                       ]),
+
                   if (!(widget.purchaseModel.items == null)) ...[
                     for (var item in widget.purchaseModel.items!) ...[
                       pw.TableRow(
                         verticalAlignment: pw.TableCellVerticalAlignment.middle,
                         children: [
 
+                          pw.SizedBox(width: 10),
+
                           pw.Expanded(
                               child: pw.Text(
-                            item.itemName,
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
+                                item.itemName,
+                                textAlign: pw.TextAlign.left,
+                                style: pw.TextStyle(
+                                  font: robotoLight,
+                                  fontSize: 8,
+                                ),
+                              )),
 
                           pw.Expanded(
                             child: pw.Text(
@@ -146,32 +159,58 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
 
                           pw.Expanded(
                               child: pw.Text(
-                            "${item.price} Ks",
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
+                                "${item.price} Ks",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                  font: robotoLight,
+                                  fontSize: 8,
+                                ),
+                              )),
                           pw.Expanded(
                               child: pw.Text(
-                            "${(item.price) * (item.count)}ks",
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
+                                "${(item.price) * (item.count)} Ks",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                  font: robotoLight,
+                                  fontSize: 8,
+                                ),
+                              )),
                         ],
                       ),
                     ],
                   ],
                   if (!(widget.purchaseModel.rewardProductList == null)) ...[
                     for (var item
-                        in widget.purchaseModel.rewardProductList!) ...[
+                    in widget.purchaseModel.rewardProductList!) ...[
                       pw.TableRow(
                         verticalAlignment: pw.TableCellVerticalAlignment.middle,
                         children: [
+
+                          pw.Expanded(
+                            child: pw.Text(
+                              "",
+                              overflow: pw.TextOverflow.clip,
+                              maxLines: 1,
+                              textAlign: pw.TextAlign.center,
+                              style: pw.TextStyle(
+                                font: robotoLight,
+                                fontSize: 8,
+                              ),
+                            ),
+                          ),
+
+                          pw.Expanded(
+                              child: pw.Text(
+                                item.name,
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                  font: robotoLight,
+                                  fontSize: 8,
+                                ),
+                              )),
+
+
+
                           pw.Expanded(
                             child: pw.Text(
                               "${item.count}",
@@ -184,33 +223,26 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
                               ),
                             ),
                           ),
+
                           pw.Expanded(
                               child: pw.Text(
-                            item.name,
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
+                                "${item.requirePoint} Points",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                  font: robotoLight,
+                                  fontSize: 8,
+                                ),
+                              )),
+
                           pw.Expanded(
                               child: pw.Text(
-                            "${item.requirePoint} points",
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
-                          pw.Expanded(
-                              child: pw.Text(
-                            "0 Ks",
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
+                                "${item.requirePoint} Points",
+                                textAlign: pw.TextAlign.center,
+                                style: pw.TextStyle(
+                                  font: robotoLight,
+                                  fontSize: 8,
+                                ),
+                              )),
                         ],
                       ),
                     ],
@@ -258,16 +290,59 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
               child: pw.Row(children: [
                 pw.Expanded(child: pw.Text("")),
                 pw.Padding(
-                     padding: pw.EdgeInsets.only(right: 20),
-                      child: pw.Text(
-                        "Delivery Fees:  ${widget.shipping} ks",
-                        textAlign: pw.TextAlign.right,
-                        style: const pw.TextStyle(
-                          fontSize: 8,
-                        ),
-                      ),),
+                  padding: pw.EdgeInsets.only(right: 20),
+                  child: pw.Text(
+                    "Delivery Fees:  ${widget.shipping} Ks",
+                    textAlign: pw.TextAlign.right,
+                    style: const pw.TextStyle(
+                      fontSize: 8,
+                    ),
+                  ),),
               ]),
             ),
+            pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                //Name
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.start,
+                  children: [
+                    pw.SizedBox(width: 10),
+                    // pw.Text("Name: "),
+                    pw.Text(widget.purchaseModel.name,
+          textAlign: pw.TextAlign.right,
+          style: const pw.TextStyle(
+          fontSize: 8,),),
+                    pw.SizedBox(width: 50),
+                    pw.Text(widget.purchaseModel.phone,
+          textAlign: pw.TextAlign.right,
+          style: const pw.TextStyle(
+          fontSize: 8,),),
+                  ]
+                ),
+
+                pw.SizedBox(width: 10, height: 5),
+
+                pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    children: [
+                      pw.SizedBox(width: 10),
+                      // pw.Text("Name: "),
+                      pw.Text(widget.purchaseModel.email,
+                        textAlign: pw.TextAlign.right,
+                        style: const pw.TextStyle(
+                          fontSize: 8,),),
+                      pw.SizedBox(width: 50),
+                      pw.Text(widget.purchaseModel.address,
+                        textAlign: pw.TextAlign.right,
+                        style: const pw.TextStyle(
+                          fontSize: 8,),),
+                    ]
+                ),
+
+              ]
+            ),
+            pw.SizedBox(height: 10),
             //Thank
             pw.Text("Thank you!",
                 textAlign: pw.TextAlign.center,
@@ -276,6 +351,7 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
                   font: oleBold,
                   fontSize: 8,
                 )),
+            pw.SizedBox(height: 10),
             pw.Text(
               DateFormat("EEEE, dd MMM y kk:mm").format(DateTime.now()),
               textAlign: pw.TextAlign.center,
@@ -287,6 +363,11 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
         },
       ),
     );
+    getImageUnitBytes(doc).then((value){
+      setState(() {
+        imageUnitBytes = value;
+      });
+    });
   }
 
   @override
@@ -308,40 +389,26 @@ class _UserOrderPrintViewState extends State<UserOrderPrintView> {
         leading: const BackButton(color: Colors.black),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: PdfPreview(
-          allowSharing: false,
-          actions: [
-            PdfPreviewAction(
-                icon: const Icon(
-                  Icons.save,
-                  color: Colors.white,
-                ),
-                onPressed: (_, __, ___) {
-                  saveImageIntoDirectory(doc);
-                },
-              ),
-          ],
-          pageFormats: {
-            "57mm": PdfPageFormat(
-              359.043,
-              250 +
-                  ((widget.purchaseModel.items?.length ?? 0) +
-                      (widget.purchaseModel.items?.length ?? 0) * 20),
-            ),
-            "80mm": PdfPageFormat(
-              503.92,
-              250 +
-                  ((widget.purchaseModel.items?.length ?? 0) +
-                      (widget.purchaseModel.items?.length ?? 0) * 20),
-            ),
-          },
-          build: (format) => doc.save(),
-          onPrinted: (context) async {
-            await Printing.layoutPdf(
-                onLayout: (PdfPageFormat format) async => doc.save());
-          },
+      body: imageUnitBytes == null ?
+      Center(
+        child: const SizedBox(
+          height: 50,
+          width: 50,
+          child: CircularProgressIndicator(),
         ),
+      ) : Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.memory(imageUnitBytes!,fit: BoxFit.cover,),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: homeIndicatorColor,
+              ),
+              onPressed: () => saveImageIntoDirectory(imageUnitBytes!), child: Text("Save Photo in Gallery"),),
+          )
+        ],
       ),
     );
   }

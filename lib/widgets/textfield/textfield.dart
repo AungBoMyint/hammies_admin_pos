@@ -120,12 +120,11 @@ class _ExTextFieldState extends State<ExTextField> {
                 ),
                 onChanged: (text) {
                   Input.set(widget.id, text);
-                  if (widget.onChanged != null) return widget.onChanged(text);
+ return widget.onChanged(text);
                 },
                 onSubmitted: (text) {
                   Input.set(widget.id, text);
-                  if (widget.onSubmitted != null)
-                    return widget.onSubmitted(text);
+                  return widget.onSubmitted(text);
                 },
               ),
             ),

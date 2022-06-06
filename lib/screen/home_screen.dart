@@ -57,9 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     fltNotification!.initialize(initSetting);
 
-    if (messaging != null) {
-      print('vvvvvvv');
-    }
+    print('vvvvvvv');
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       showNotification(message);

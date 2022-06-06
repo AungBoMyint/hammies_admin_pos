@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import '../../../../model/product_item.dart';
-import '../view/pos_view.dart';
 
 class PosController extends GetxController {
   bool loading = true;
@@ -42,18 +40,6 @@ class PosController extends GetxController {
 
   updateFilter(value) async {
     categoryNameFilter = value;
-    update();
-  }
-
-  void startScan() async {
-    categoryNameFilter = "scanning";
-    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666", "Cancel", true, ScanMode.BARCODE);
-    barcodeResult = barcodeScanRes;
-    if (barcodeResult == "-1") {
-      categoryNameFilter = "All";
-    }
-    debugPrint("*******barcode: $barcodeResult");
     update();
   }
 

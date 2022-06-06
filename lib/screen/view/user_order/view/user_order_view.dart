@@ -23,7 +23,7 @@ class UserOrderView extends StatelessWidget {
               tabs: [
                 Tab(
                   child: Text(
-                    "Cash On Delivery",
+                    "Cash On Deli",
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

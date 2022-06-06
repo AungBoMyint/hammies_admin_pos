@@ -8,9 +8,7 @@ import 'package:hammies_user/screen/view/reward_product_form/view/reward_product
 import 'package:hammies_user/screen/view/reward_products/controller/reward_controller.dart';
 
 import '../../../../controller/home_controller.dart';
-import '../../../../routes/routes.dart';
 import '../../../../utils/theme.dart';
-import '../../../../widgets/radio/stream_radio.dart';
 import '../../../../widgets/search_bar/search_bar.dart';
 
 class RewardProductView extends StatefulWidget {
@@ -129,13 +127,11 @@ class _RewardProductViewState extends State<RewardProductView> {
                           //   }
                           // }
 
-                          if (controller.search != null) {
-                            log("search >>> ${controller.search}");
-                            if (controller.search.isNotEmpty &&
-                                !item.name.toString().toLowerCase().contains(
-                                    controller.search.toLowerCase())) {
-                              return Container();
-                            }
+                          log("search >>> ${controller.search}");
+                          if (controller.search.isNotEmpty &&
+                              !item.name.toString().toLowerCase().contains(
+                                  controller.search.toLowerCase())) {
+                            return Container();
                           }
                           debugPrint("*****Image: ${item.image}");
 

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -55,23 +56,10 @@ void showBlueWarnning() {
 
 //Save JPG into Gallery
 
-Future<void> saveImageIntoDirectory(pw.Document doc) async{
+Future<void> saveImageIntoDirectory(Uint8List bytes) async{
     showSaving();
     final tempDire = await getTemporaryDirectory();
-    final pdfByte = await doc.save();
-    final tempFile = File("${tempDire.path}/${Uuid().v1()}.pdf");
-    await tempFile.writeAsBytes(pdfByte)
-    .then((value) async{
-        final pdfFilePath = value.path;
-        final document = await PdfDocument.openFile(pdfFilePath);
-        final page = await document.getPage(1);
-    final pageImage = await page.render(width: page.width, height: page.height,
-    format: PdfPageImageFormat.jpeg,
-   // backgroundColor: 
-    );
-    debugPrint("******JPGBytes: ${pageImage!.bytes}");
-    final jpgByte = pageImage.bytes;
-     await File("${tempDire.path}/${Uuid().v1()}.jpg").writeAsBytes(jpgByte)
+     await File("${tempDire.path}/${Uuid().v1()}.jpg").writeAsBytes(bytes)
      .then((value) async{
        await ImageGallerySaver.saveFile(value.path)
        .then((value){
@@ -82,5 +70,22 @@ Future<void> saveImageIntoDirectory(pw.Document doc) async{
          Future.delayed(const Duration(milliseconds: 1000),() => Get.closeCurrentSnackbar());
        });
      });
-    });
   }
+
+
+Future<Uint8List> getImageUnitBytes(pw.Document doc) async{
+  //showSaving();
+  final tempDire = await getTemporaryDirectory();
+  final pdfByte = await doc.save();
+  final tempFile = File("${tempDire.path}/${Uuid().v1()}.pdf");
+  final file = await tempFile.writeAsBytes(pdfByte);
+  final pdfFilePath = file.path;
+  final document = await PdfDocument.openFile(pdfFilePath);
+  final page = await document.getPage(1);
+  final pageImage = await page.render(width: page.width*4, height: page.height*4,
+    format: PdfPageImageFormat.jpeg,
+    quality: 100,
+    // backgroundColor:
+  );
+  return pageImage!.bytes;
+}
