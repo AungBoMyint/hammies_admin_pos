@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hammies_user/controller/home_controller.dart';
+import 'package:hammies_user/screen/not_allow_screen.dart';
 
 import '../controller/main_navigation_controller.dart';
 import '../utils/theme.dart';
 import 'view/order/order_view.dart';
 import 'view/pos/view/pos_view.dart';
 import 'view/profile/view/profile_view.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -85,74 +86,81 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final MainNavigationController controller = Get.find();
     List<Widget> views = [OrderView(), PosView(), ProfileView()];
+    final HomeController homeController = Get.find();
+    return Obx(() {
+      final authorized = homeController.authorized.value;
+      if (!authorized) {
+        return NotAllowScreen();
+      }
+      return GetBuilder<MainNavigationController>(
+        builder: (_) {
+          var _index = controller.index;
 
-    return GetBuilder<MainNavigationController>(
-      builder: (_) {
-        var _index = controller.index;
-        return Scaffold(
-          body: views[_index],
-          bottomNavigationBar: Container(
-            height: 115,
-            child: Column(
-              children: [
-                Container(
-                  height: 2.0,
-                  color: theme.primary.withOpacity(0.8),
-                ),
-                Container(
-                  height: 4.0,
-                  color: theme.primary.withOpacity(0.8),
-                ),
-                BottomNavigationBar(
-                    showUnselectedLabels: true,
-                    currentIndex: _index,
-                    type: BottomNavigationBarType.fixed,
-                    onTap: (int _index) {
-                      controller.changeNavIndex(_index);
-                    },
-                    items: <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: CircleAvatar(
-                          backgroundColor:
-                              _index == 0 ? Colors.white : theme.primary,
-                          child: Icon(
-                            Icons.history,
-                            color: _index == 0 ? theme.primary : Colors.white,
+          return Scaffold(
+            body: views[_index],
+            bottomNavigationBar: Container(
+              height: 115,
+              child: Column(
+                children: [
+                  Container(
+                    height: 2.0,
+                    color: theme.primary.withOpacity(0.8),
+                  ),
+                  Container(
+                    height: 4.0,
+                    color: theme.primary.withOpacity(0.8),
+                  ),
+                  BottomNavigationBar(
+                      showUnselectedLabels: true,
+                      currentIndex: _index,
+                      type: BottomNavigationBarType.fixed,
+                      onTap: (int _index) {
+                        controller.changeNavIndex(_index);
+                      },
+                      items: <BottomNavigationBarItem>[
+                        BottomNavigationBarItem(
+                          icon: CircleAvatar(
+                            backgroundColor:
+                                _index == 0 ? Colors.white : theme.primary,
+                            child: Icon(
+                              Icons.history,
+                              color: _index == 0 ? theme.primary : Colors.white,
+                            ),
+                            radius: _index == 0 ? 22 : 16.0,
                           ),
-                          radius: _index == 0 ? 22 : 16.0,
+                          label: "Your Order",
                         ),
-                        label: "Your Order",
-                      ),
-                      BottomNavigationBarItem(
-                        icon: CircleAvatar(
-                          backgroundColor:
-                              _index == 1 ? Colors.white : theme.primary,
-                          child: Icon(
-                            FontAwesomeIcons.cashRegister,
-                            color: _index == 1 ? theme.primary : Colors.white,
+                        BottomNavigationBarItem(
+                          icon: CircleAvatar(
+                            backgroundColor:
+                                _index == 1 ? Colors.white : theme.primary,
+                            child: Icon(
+                              FontAwesomeIcons.cashRegister,
+                              color: _index == 1 ? theme.primary : Colors.white,
+                            ),
+                            radius: _index == 1 ? 22 : 16.0,
                           ),
-                          radius: _index == 1 ? 22 : 16.0,
+                          label: "POS",
                         ),
-                        label: "POS",
-                      ),
-                      BottomNavigationBarItem(
-                        icon: CircleAvatar(
-                          backgroundColor:
-                              _index == 2 ? Colors.white : theme.primary,
-                          child: Icon(
-                            Icons.people,
-                            color: _index == 2 ? theme.primary : Colors.white,
+                        BottomNavigationBarItem(
+                          icon: CircleAvatar(
+                            backgroundColor:
+                                _index == 2 ? Colors.white : theme.primary,
+                            child: Icon(
+                              Icons.people,
+                              color: _index == 2 ? theme.primary : Colors.white,
+                            ),
+                            radius: _index == 2 ? 22 : 16.0,
                           ),
-                          radius: _index == 2 ? 22 : 16.0,
+                          label: "Profile",
                         ),
-                        label: "Profile",
-                      ),
-                    ]),
-              ],
+                      ]),
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        },
+      );
+    });
   }
 }

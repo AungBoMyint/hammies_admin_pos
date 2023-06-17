@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -26,7 +29,7 @@ class HomeController extends GetxController {
   final Database _database = Database();
   final Api _api = Api();
   final ImagePicker _imagePicker = ImagePicker();
-
+  StreamSubscription? authSubscription;
   final RxBool authorized = false.obs;
   final Rxn<User?> user = Rxn<User?>(null);
 
@@ -65,11 +68,15 @@ class HomeController extends GetxController {
   //final RxList<PurchaseModel>  = <PurchaseModel>[].obs;
 
   List<PurchaseModel> purchcasesCashOn() {
-    return realOrderList.where((item) => item.bankSlipImage == null && !(item.items == null)).toList();
+    return realOrderList
+        .where((item) => item.bankSlipImage == null && !(item.items == null))
+        .toList();
   }
 
   List<PurchaseModel> purchcasesPrePay() {
-    return realOrderList.where((item) => !(item.bankSlipImage == null) && !(item.items == null) ).toList();
+    return realOrderList
+        .where((item) => !(item.bankSlipImage == null) && !(item.items == null))
+        .toList();
   }
 
   List<PurchaseModel> getRewardOrderOnly() {
@@ -170,15 +177,41 @@ class HomeController extends GetxController {
         authorized.value = false;
       } else {
         user.value = _;
-        authorized.value = true;
-        await _database.write(
-          userCollection,
-          data: {
-            'uid': _.uid,
-            'phone': _.phoneNumber,
-          },
-          path: _.uid,
-        );
+        //authorized.value = true;
+        if (!(authSubscription == null)) {
+          authSubscription?.cancel();
+        }
+
+        authSubscription = await FirebaseFirestore.instance
+            .collection(userCollection)
+            .doc(_.uid)
+            .snapshots()
+            .listen((event) {
+          if (!(event.data() == null) &&
+              event.data()?.isNotEmpty == true &&
+              event.data()!["status"] > 0) {
+            //authorized
+            authorized.value = true;
+          }
+        });
+        //First need to check,whether this use already has
+        //document in Firebase Firestore
+        final doc = await FirebaseFirestore.instance
+            .collection(userCollection)
+            .doc(_.uid)
+            .get();
+        if (!doc.exists) {
+          await _database.write(
+            userCollection,
+            data: {
+              'uid': _.uid,
+              'user_name': _.displayName,
+              'email': _.email,
+              'status': 0,
+            },
+            path: _.uid,
+          );
+        }
       }
     });
   }
@@ -314,6 +347,21 @@ class HomeController extends GetxController {
     }
   }
 
+  Future<void> handleSignIn() async {
+    try {
+      final GoogleAuthProvider googleProvider = GoogleAuthProvider();
+      await FirebaseAuth.instance.signInWithPopup(googleProvider);
+      // Handle sign-in success
+    } catch (error) {
+      // Handle sign-in error
+    }
+  }
+
+  List<String> scopes = <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ];
+
   Future<void> signInWithGoogleForWeb() async {
     // Create a new provider
     try {
@@ -328,6 +376,7 @@ class HomeController extends GetxController {
       hideLoading();
       Get.offNamed(homeScreen);
     } catch (e) {
+      debugPrint("********Error sign in web: $e");
       hideLoading();
     }
   }

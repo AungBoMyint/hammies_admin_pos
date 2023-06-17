@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:hammies_user/screen/not_allow_screen.dart';
 import 'package:hammies_user/screen/view/product/view/product_view.dart';
 import 'package:hammies_user/screen/view/reward_products/view/reward_product_view.dart';
 import 'package:hammies_user/screen/view/user_order/view/user_order_view.dart';
@@ -33,11 +34,16 @@ const orderPrintUrl = "/order_print";
 const rewardProductUrl = "/reward_product_view";
 const productUrl = "/product_view";
 const userOrderUrl = "/user_orders";
+const notAllowUrl = "/not_allow";
 
 List<GetPage> routes = [
   GetPage(
     name: homeScreen,
     page: () => HomeScreen(),
+  ),
+  GetPage(
+    name: notAllowUrl,
+    page: () => NotAllowScreen(),
   ),
   GetPage(
     name: uploadItemScreen,

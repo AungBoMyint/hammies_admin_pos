@@ -32,69 +32,85 @@ class DashboardMenu extends StatelessWidget {
       width: Get.width,
       child: GridView.builder(
         itemCount: items.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: ResponsiveValue(context, defaultValue: 4,
-                        valueWhen: [
-                          Condition.smallerThan(
-                            name: DESKTOP,
-                            value: 3,
-                          ),
-                          Condition.smallerThan(
-                            name: MOBILE,
-                            value: 2,
-                          )
-                        ],
-                        ).value ?? 0), 
-        itemBuilder: (context,index){
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: ResponsiveValue(
+                  context,
+                  defaultValue: 4,
+                  valueWhen: [
+                    Condition.smallerThan(
+                      name: "XL",
+                      value: 5,
+                    ),
+                    Condition.smallerThan(
+                      name: "MXL",
+                      value: 4,
+                    ),
+                    Condition.smallerThan(
+                      name: DESKTOP,
+                      value: 3,
+                    ),
+                    Condition.smallerThan(
+                      name: MOBILE,
+                      value: 2,
+                    )
+                  ],
+                ).value ??
+                0),
+        itemBuilder: (context, index) {
           final item = items[index];
           return InkWell(
-              onTap: () => item.onTap(),
-              child: Container(
-                padding: EdgeInsets.only(left: 0,),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                        item.icon,
-                        color: item.color,
-                        size: ResponsiveValue(context, defaultValue: 90.0, 
-                        valueWhen: [
-                          Condition.smallerThan(
-                            name: DESKTOP,
-                            value: 35.0,
-                          )
-                        ],
-                        ).value,
-                      
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                        item.label,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize:ResponsiveValue(context, defaultValue: 18.0, 
+            onTap: () => item.onTap(),
+            child: Container(
+              padding: EdgeInsets.only(
+                left: 0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    item.icon,
+                    color: item.color,
+                    size: ResponsiveValue(
+                      context,
+                      defaultValue: 90.0,
+                      valueWhen: [
+                        Condition.smallerThan(
+                          name: DESKTOP,
+                          value: 35.0,
+                        )
+                      ],
+                    ).value,
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    item.label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: ResponsiveValue(
+                        context,
+                        defaultValue: 18.0,
                         valueWhen: [
                           Condition.smallerThan(
                             name: DESKTOP,
                             value: 16.0,
                           )
                         ],
-                        ).value,
-                          color: item.color,
-                        ),
-                      
+                      ).value,
+                      color: item.color,
                     ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                ],
               ),
-            );
+            ),
+          );
         },
-        ),
+      ),
     );
   }
 }

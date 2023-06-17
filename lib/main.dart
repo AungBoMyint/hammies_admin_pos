@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hammies_user/key.dart';
 import 'package:hammies_user/routes/routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -13,11 +14,18 @@ import 'utils/theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: apiKey,
+      appId: projectId,
+      messagingSenderId: messagingSenderId,
+      projectId: projectId,
+      authDomain: authDomain,
+    ),
+  );
   Get.put(HomeController());
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -44,7 +52,8 @@ class _MyAppState extends State<MyApp> {
           ResponsiveBreakpoint.resize(390, name: MOBILE),
           ResponsiveBreakpoint.autoScale(600, name: TABLET),
           ResponsiveBreakpoint.resize(800, name: DESKTOP),
-          ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
+          ResponsiveBreakpoint.autoScale(1120, name: 'MXL'),
+          ResponsiveBreakpoint.resize(1700, name: 'XL'),
         ],
       ),
       debugShowCheckedModeBanner: false,

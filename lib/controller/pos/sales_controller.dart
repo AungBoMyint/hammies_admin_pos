@@ -293,10 +293,12 @@ class SalesController extends GetxController {
     await _controller.getDaysSales().then((value) {
       debugPrint("****${value.data()}***");
       var dailySplay = SplayTreeMap<int, MapEntry<String, OrderAndTotal>>();
-      DailyOrderData.fromJson(value.data()!).dateTime.forEach((key, value) {
-        log("********documentKey: $key*****");
-        dailySplay[getDay(key)] = MapEntry(key, value);
-      });
+      if (value.data()?.isNotEmpty == true) {
+        DailyOrderData.fromJson(value.data()!).dateTime.forEach((key, value) {
+          log("********documentKey: $key*****");
+          dailySplay[getDay(key)] = MapEntry(key, value);
+        });
+      }
       dailySplayTreeMapList.value = startDateToEndDateList().map((e) {
         if (dailySplay.containsKey(e.day)) {
           return MapEntry(e.day,
