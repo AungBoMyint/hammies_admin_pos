@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NotAllowScreen extends StatelessWidget {
   const NotAllowScreen({Key? key}) : super(key: key);
@@ -14,10 +15,20 @@ class NotAllowScreen extends StatelessWidget {
           const SizedBox(
             height: 25,
           ),
-          Image.asset(
-            "assets/logo.png",
-            width: size.width * 0.3,
-            height: size.height * 0.3,
+          SizedBox(
+            width: Get.width * 0.18,
+            height: Get.height * 0.28,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(20),
+              ),
+              child: Image.asset(
+                "assets/logo.jpg",
+                width: Get.width / 2,
+                height: Get.height / 3,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           const SizedBox(
             height: 25,

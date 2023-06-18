@@ -17,14 +17,15 @@ Widget rewardPurchaseDialogBox({
 }) {
   HomeController controller = Get.find();
   final responsiveFontSize14 = TextStyle(
-    fontSize: ResponsiveValue(context, 
-    defaultValue: 12.0, 
-    valueWhen: [
-      Condition.smallerThan(
-        name: DESKTOP,
-        value: 10.0,
-      )
-    ],
+    fontSize: ResponsiveValue(
+      context,
+      defaultValue: 12.0,
+      valueWhen: [
+        Condition.smallerThan(
+          name: DESKTOP,
+          value: 10.0,
+        )
+      ],
     ).value,
   );
   return Column(
@@ -137,22 +138,27 @@ Widget rewardPurchaseDialogBox({
             "ပို့ဆောင်ရမည့်မြို့နယ် -",
             style: responsiveFontSize14,
           ),
-         // SizedBox(width: 10),
+          // SizedBox(width: 10),
           Text(
             township,
-            style: TextStyle(fontSize: ResponsiveValue(context, 
-    defaultValue: 12.0, 
-    valueWhen: [
-      Condition.smallerThan(
-        name: DESKTOP,
-        value: 10.0,
-      )
-    ],
-    ).value, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: ResponsiveValue(
+                  context,
+                  defaultValue: 12.0,
+                  valueWhen: [
+                    Condition.smallerThan(
+                      name: DESKTOP,
+                      value: 10.0,
+                    )
+                  ],
+                ).value,
+                fontWeight: FontWeight.bold),
           ),
         ],
       ),
-      const SizedBox(height: 10,),
+      const SizedBox(
+        height: 10,
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -171,13 +177,46 @@ Widget rewardPurchaseDialogBox({
           primary: homeIndicatorColor,
         ),
         onPressed: () {
-          //Show BlueTooth Dialog..Box....
-          Get.to(UserOrderPrintView(
-            purchaseModel: list[i],
-            total: total,
-            shipping: shipping,
-            township: township,
+          Get.dialog(Center(
+            child: SizedBox(
+              height: 150,
+              width: 150,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Get.to(UserOrderPrintView(
+                        purchaseModel: list[i],
+                        total: total,
+                        shipping: shipping,
+                        township: township,
+                        isView: true,
+                      ));
+                    },
+                    child: Text("View"),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Get.to(UserOrderPrintView(
+                        purchaseModel: list[i],
+                        total: total,
+                        shipping: shipping,
+                        township: township,
+                        isView: false,
+                      ));
+                    },
+                    child: Text("Download"),
+                  ),
+                ],
+              ),
+            ),
           ));
+
+          //Show BlueTooth Dialog..Box....
         },
         child: Text("See As Photo"),
       ),

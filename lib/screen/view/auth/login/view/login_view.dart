@@ -12,119 +12,115 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find();
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Container(
-              color: Colors.transparent,
-              constraints: BoxConstraints(
-                maxWidth: 400.0,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: Get.width * 0.18,
+              height: Get.height * 0.28,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                child: Image.asset(
+                  "assets/logo.jpg",
+                  width: Get.width / 2,
+                  height: Get.height / 3,
+                  fit: BoxFit.cover,
+                ),
               ),
-              padding: const EdgeInsets.all(20.0),
+            ),
+
+            /*Text(
+                      "Pos App",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),*/
+            SizedBox(
+              height: 20.0,
+            ),
+            Container(
+              width: Get.width * 0.25,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                    child: Image.asset(
-                      "assets/logo.png",
-                      width: Get.width / 3,
+                  InkWell(
+                    onTap: () => homeController.signInWithGoogle(),
+                    child: Card(
+                      color: theme.primary,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: theme.primary,
+                              radius: 12,
+                              child: Icon(
+                                FontAwesomeIcons.google,
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Text(
+                              "Sign in with Google",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                  /*Text(
-                    "Pos App",
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),*/
                   SizedBox(
-                    height: 20.0,
+                    height: 6.0,
                   ),
-                  Container(
-                    width: Get.width - 100,
-                    child: Column(
-                      children: [
-                        InkWell(
-                          onTap: () => homeController.signInWithGoogle(),
-                          child: Card(
-                            color: theme.primary,
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: theme.primary,
-                                    radius: 12,
-                                    child: Icon(
-                                      FontAwesomeIcons.google,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Text(
-                                    "Sign in with Google",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
+                  InkWell(
+                    onTap: () => homeController.signInAnonymous(),
+                    child: Card(
+                      color: theme.primary,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: theme.primary,
+                              radius: 12,
+                              child: Icon(
+                                FontAwesomeIcons.user,
+                                color: Colors.white,
+                                size: 20,
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 6.0,
-                        ),
-                        InkWell(
-                          onTap: () => homeController.signInAnonymous(),
-                          child: Card(
-                            color: theme.primary,
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: theme.primary,
-                                    radius: 12,
-                                    child: Icon(
-                                      FontAwesomeIcons.user,
-                                      color: Colors.white,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Text(
-                                    "Guest",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Text(
+                              "Guest",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

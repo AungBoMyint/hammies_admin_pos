@@ -128,9 +128,39 @@ class OrderView extends StatelessWidget {
                                       pay: item.pay,
                                       item: item,
                                     ));*/
-                                Get.to(() => OrderPrintView(
-                                      orderItem: item,
-                                    ));
+                                Get.dialog(Center(
+                                  child: SizedBox(
+                                    height: 150,
+                                    width: 150,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => OrderPrintView(
+                                                  orderItem: item,
+                                                  isView: true,
+                                                ));
+                                          },
+                                          child: Text("View"),
+                                        ),
+                                        const SizedBox(
+                                          height: 25,
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => OrderPrintView(
+                                                  orderItem: item,
+                                                  isView: false,
+                                                ));
+                                          },
+                                          child: Text("Download"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
                               },
                               child: Card(
                                 child: Container(

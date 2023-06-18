@@ -1,8 +1,10 @@
+import 'dart:html';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart' hide TableRow;
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:native_pdf_renderer/native_pdf_renderer.dart';
 import 'package:pdf/pdf.dart' hide PdfDocument;
 import 'package:pdf/widgets.dart' as pw;
 import 'package:intl/intl.dart';
@@ -13,9 +15,11 @@ import '../../../../utils/utils.dart';
 
 class OrderPrintView extends StatefulWidget {
   final OrderItem orderItem;
+  final bool isView;
   const OrderPrintView({
     Key? key,
     required this.orderItem,
+    required this.isView,
   }) : super(key: key);
 
   @override
@@ -23,7 +27,9 @@ class OrderPrintView extends StatefulWidget {
 }
 
 class _OrderPrintViewState extends State<OrderPrintView> {
-  Uint8List? imageUnitBytes;
+  String? imageUrl;
+  Image? image;
+  PdfController? pdfController;
 
   @override
   void initState() {
@@ -31,10 +37,15 @@ class _OrderPrintViewState extends State<OrderPrintView> {
     super.initState();
   }
 
-  void makePdfPage() async{
+  void makePdfPage() async {
     HomeController _controller = Get.find();
-    final byte = await rootBundle.load('assets/logo.png');
-    final image = pw.MemoryImage(byte.buffer.asUint8List());
+    ByteData? byte;
+    try {
+      byte = await rootBundle.load('assets/logo.jpg');
+    } catch (e) {
+      debugPrint("****Error Image: $e");
+    }
+    final image = pw.MemoryImage(byte!.buffer.asUint8List());
     final pw.Document doc = pw.Document();
     var oleBold = pw.Font.ttf(_controller.oleoBold);
     var oleRegular = pw.Font.ttf(_controller.oleoRegular);
@@ -81,7 +92,6 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                     verticalAlignment: pw.TableCellVerticalAlignment.middle,
                     children: [
                       pw.SizedBox(width: 2),
-
                       pw.Text("Item",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
@@ -89,7 +99,6 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                             font: robotoBold,
                             fontSize: 8,
                           )),
-
                       pw.Text("Qty",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
@@ -97,7 +106,6 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                             font: robotoBold,
                             fontSize: 8,
                           )),
-
                       pw.Text("Price",
                           textAlign: pw.TextAlign.center,
                           style: pw.TextStyle(
@@ -120,14 +128,13 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                       pw.SizedBox(width: 10),
                       pw.Expanded(
                           child: pw.Text(
-                            item.name,
-                            textAlign: pw.TextAlign.left,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
-
+                        item.name,
+                        textAlign: pw.TextAlign.left,
+                        style: pw.TextStyle(
+                          font: robotoLight,
+                          fontSize: 8,
+                        ),
+                      )),
                       pw.Expanded(
                         child: pw.Text(
                           "${item.count}",
@@ -140,25 +147,24 @@ class _OrderPrintViewState extends State<OrderPrintView> {
                           ),
                         ),
                       ),
-
                       pw.Expanded(
                           child: pw.Text(
-                            "${item.price} Ks",
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
+                        "${item.price} Ks",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                          font: robotoLight,
+                          fontSize: 8,
+                        ),
+                      )),
                       pw.Expanded(
                           child: pw.Text(
-                            "${(item.price) * (item.count!)} Ks",
-                            textAlign: pw.TextAlign.center,
-                            style: pw.TextStyle(
-                              font: robotoLight,
-                              fontSize: 8,
-                            ),
-                          )),
+                        "${(item.price) * (item.count!)} Ks",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                          font: robotoLight,
+                          fontSize: 8,
+                        ),
+                      )),
                     ],
                   ),
                 ],
@@ -248,11 +254,13 @@ class _OrderPrintViewState extends State<OrderPrintView> {
         },
       ),
     );
-    getImageUnitBytes(doc).then((value){
+    widget.isView ? openHtml(doc) : downHtml(doc);
+    Get.back();
+    /* getImageUnitBytes(doc).then((value) async {
       setState(() {
-        imageUnitBytes = value;
+        imageUrl = value;
       });
-    });
+    }); */
   }
 
   @override
@@ -274,27 +282,31 @@ class _OrderPrintViewState extends State<OrderPrintView> {
         leading: const BackButton(color: Colors.black),
         centerTitle: true,
       ),
-      body: imageUnitBytes == null ?
-      Center(
-        child: const SizedBox(
-          height: 50,
-          width: 50,
-          child: CircularProgressIndicator(),
-        ),
-      ) : Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.memory(imageUnitBytes!,fit: BoxFit.cover,),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: homeIndicatorColor,
+      body: imageUrl == null
+          ? Center(
+              child: const SizedBox(
+                height: 50,
+                width: 50,
+                child: CircularProgressIndicator(),
               ),
-              onPressed: () => saveImageIntoDirectory(imageUnitBytes!), child: Text("Save Photo in Gallery"),),
-          )
-        ],
-      ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.network(imageUrl!),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: homeIndicatorColor,
+                    ),
+                    onPressed:
+                        () {} /*  => saveImageIntoDirectory(imageUnitBytes!) */,
+                    child: Text("Save Photo in Gallery"),
+                  ),
+                )
+              ],
+            ),
     );
   }
 }
