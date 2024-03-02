@@ -13,6 +13,7 @@ import '../screen/view/expend_category/expend_category_view.dart';
 import '../screen/view/pos_inventory/inventory_management.dart';
 import '../screen/view/pos_sales_analysis/sales_analysis.dart';
 import '../screen/view/product_category/product_category_view.dart';
+import '../screen/view/slider/app_slider_view.dart';
 
 const String homeScreen = '/home';
 const String checkOutScreen = '/checkout';
@@ -33,6 +34,7 @@ const productCategoryUrl = "/product_category_url";
 const orderPrintUrl = "/order_print";
 const rewardProductUrl = "/reward_product_view";
 const productUrl = "/product_view";
+const sliderUrl = "/slider_view";
 const userOrderUrl = "/user_orders";
 const notAllowUrl = "/not_allow";
 
@@ -52,6 +54,10 @@ List<GetPage> routes = [
   GetPage(
     name: productUrl,
     page: () => ProductView(),
+  ),
+  GetPage(
+    name: sliderUrl,
+    page: () => AppSliderView(),
   ),
   GetPage(
     name: rewardProductUrl,

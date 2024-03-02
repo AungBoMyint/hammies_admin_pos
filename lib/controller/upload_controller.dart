@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hammies_user/model/item_size.dart';
 import 'package:hammies_user/model/reward_product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -23,12 +24,15 @@ class UploadController extends GetxController {
       photoController.text = _homeController.editItem.value!.photo;
       nameController.text = _homeController.editItem.value!.name;
       priceController.text = _homeController.editItem.value!.price.toString();
+      discountPriceController.text =
+          _homeController.editItem.value!.discountPrice.toString();
+
       photo2Controller.text = _homeController.editItem.value!.photo2;
       photo3Controller.text = _homeController.editItem.value!.photo3;
       starController.text = _homeController.editItem.value!.star.toString();
       descController.text = _homeController.editItem.value!.desc.toString();
-      colorController.text = _homeController.editItem.value!.color;
-      sizeController.text = _homeController.editItem.value!.size;
+      colorController.value = _homeController.editItem.value!.colorList ?? [];
+      sizeController.value = _homeController.editItem.value!.sizeList ?? [];
       categoryController.text = _homeController.editItem.value!.category;
       originalPriceController.text =
           _homeController.editItem.value!.originalPrice.toString();
@@ -50,8 +54,9 @@ class UploadController extends GetxController {
   final TextEditingController photoController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
-  final TextEditingController colorController = TextEditingController();
-  final TextEditingController sizeController = TextEditingController();
+  final TextEditingController discountPriceController = TextEditingController();
+  RxList<String> colorController = <String>[].obs;
+  RxList<ItemSize> sizeController = <ItemSize>[].obs;
   final TextEditingController categoryController = TextEditingController();
   final TextEditingController originalPriceController = TextEditingController();
   final TextEditingController originalQuantityController =
@@ -71,6 +76,20 @@ class UploadController extends GetxController {
     } catch (e) {
       print("pickImage error $e");
     }
+  }
+
+  void addSize() => sizeController.add(ItemSize.empty());
+  void removeSize(int index) => sizeController.removeAt(index);
+  void changeSizeText(String value, int index) {
+    sizeController[index] = sizeController[index].copyWith(
+      size: value,
+    );
+  }
+
+  void changeSizePrice(String value, int index) {
+    sizeController[index] = sizeController[index].copyWith(
+      price: int.tryParse(value) ?? 0,
+    );
   }
 
   String? validator(String? data) => data?.isEmpty == true ? 'empty' : null;
@@ -100,11 +119,13 @@ class UploadController extends GetxController {
                   desc: descController.text,
                   name: nameController.text,
                   price: int.parse(priceController.text),
+                  discountPrice:
+                      int.tryParse(discountPriceController.text) ?? 0,
                   originalPrice: int.parse(originalPriceController.text),
                   originalQuantity: int.parse(originalQuantityController.text),
                   remainQuantity: int.parse(remainQuantityController.text),
-                  color: colorController.text,
-                  size: sizeController.text,
+                  colorList: colorController,
+                  sizeList: sizeController,
                   category: categoryController.text,
                 )
                 .toJson(),
@@ -122,11 +143,12 @@ class UploadController extends GetxController {
               name: nameController.text,
               desc: descController.text,
               price: int.parse(priceController.text),
+              discountPrice: int.parse(discountPriceController.text),
               originalPrice: int.parse(originalPriceController.text),
               originalQuantity: int.parse(originalQuantityController.text),
               remainQuantity: int.parse(remainQuantityController.text),
-              color: colorController.text,
-              size: sizeController.text,
+              colorList: colorController,
+              sizeList: sizeController,
               category: categoryController.text,
               deliverytime: DateTime.now().toString(),
               star: int.parse(starController.text),
@@ -140,6 +162,7 @@ class UploadController extends GetxController {
         photoController.clear();
         nameController.clear();
         priceController.clear();
+        discountPriceController.clear();
         colorController.clear();
         sizeController.clear();
         photo2Controller.clear();

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:hammies_user/utils/utils.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 
 import '../controller/home_controller.dart';
 import '../controller/upload_controller.dart';
@@ -151,8 +154,166 @@ class _UploadItemState extends State<UploadItem> {
                 ),
               ),
             ),
+            20.v(),
+            //COLORS
+            SizedBox(
+              height: 35,
+              child: InkWell(
+                onTap: () => colorPickerDialog(context),
+                child: Row(
+                  children: [
+                    20.h(),
+                    Icon(
+                      FontAwesomeIcons.plus,
+                      color: homeIndicatorColor,
+                    ),
+                    20.h(),
+                    Text("Pick Color(mandatory)"),
+                  ],
+                ),
+              ),
+            ),
 
-            Padding(
+            Obx(() {
+              final colorController = controller.colorController;
+              if (colorController.isNotEmpty) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Wrap(
+                    children: colorController
+                        .map((e) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: SizedBox(
+                                height: 16 * 2,
+                                width: 16 * 2,
+                                child: Stack(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 15,
+                                      backgroundColor:
+                                          Color(int.tryParse(e) ?? 0),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: InkWell(
+                                          onTap: () {
+                                            controller.colorController
+                                                .remove(e);
+                                          },
+                                          child: Icon(
+                                            FontAwesomeIcons.minus,
+                                            color: Colors.black,
+                                            size: 10,
+                                          )),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                );
+              } else {
+                return 0.h();
+              }
+            }),
+            //SIZE
+            20.v(),
+            //COLORS
+            SizedBox(
+              height: 35,
+              child: InkWell(
+                onTap: () => controller.addSize(),
+                child: Row(
+                  children: [
+                    20.h(),
+                    Icon(
+                      FontAwesomeIcons.plus,
+                      color: homeIndicatorColor,
+                    ),
+                    20.h(),
+                    Text("Add Size(mandatory)"),
+                  ],
+                ),
+              ),
+            ),
+
+            Obx(() {
+              final sizeController = controller.sizeController;
+              if (sizeController.isNotEmpty) {
+                return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Wrap(
+                      children: List.generate(sizeController.length, (index) {
+                        final e = sizeController[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 0),
+                          child: SizedBox(
+                              height: 80,
+                              child: Row(
+                                children: [
+                                  //Size
+                                  Expanded(
+                                    child: TextFormField(
+                                      initialValue: e.size,
+                                      // textInputAction: TextInputAction.done,
+                                      onChanged: (v) =>
+                                          controller.changeSizeText(v, index),
+                                      keyboardType: TextInputType.multiline,
+                                      textInputAction: TextInputAction.newline,
+                                      minLines: 1,
+                                      maxLines: null,
+                                      validator: controller.validator,
+                                      decoration: InputDecoration(
+                                        hintText: 'Size',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ),
+                                  20.h(),
+                                  //Price
+                                  Expanded(
+                                    child: TextFormField(
+                                      initialValue: e.price.toString(),
+                                      // textInputAction: TextInputAction.done,
+                                      onChanged: (v) =>
+                                          controller.changeSizePrice(v, index),
+                                      keyboardType: TextInputType.multiline,
+                                      textInputAction: TextInputAction.newline,
+                                      minLines: 1,
+                                      maxLines: null,
+                                      validator: controller.validator,
+                                      decoration: InputDecoration(
+                                        hintText: 'Price',
+                                        border: OutlineInputBorder(),
+                                      ),
+                                    ),
+                                  ),
+                                  20.h(),
+                                  InkWell(
+                                      onTap: () {
+                                        controller.removeSize(index);
+                                      },
+                                      child: Icon(
+                                        FontAwesomeIcons.minus,
+                                        color: Colors.black,
+                                        size: 10,
+                                      )),
+                                ],
+                              )),
+                        );
+                      }).toList(),
+                    ));
+              } else {
+                return 0.h();
+              }
+            }),
+
+            /* Padding(
               padding: EdgeInsets.only(
                 top: 20,
                 left: 20,
@@ -166,8 +327,8 @@ class _UploadItemState extends State<UploadItem> {
                   border: OutlineInputBorder(),
                 ),
               ),
-            ),
-            Padding(
+            ), */
+            /* Padding(
               padding: EdgeInsets.only(
                 top: 20,
                 left: 20,
@@ -181,7 +342,7 @@ class _UploadItemState extends State<UploadItem> {
                   border: OutlineInputBorder(),
                 ),
               ),
-            ),
+            ), */
             Padding(
               padding: EdgeInsets.only(
                 top: 20,
@@ -224,6 +385,21 @@ class _UploadItemState extends State<UploadItem> {
                 validator: controller.validator,
                 decoration: const InputDecoration(
                   hintText: 'ရောင်းစျေး',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 20,
+                right: 20,
+              ),
+              child: TextFormField(
+                controller: controller.discountPriceController,
+                validator: controller.validator,
+                decoration: const InputDecoration(
+                  hintText: 'လျော့စျေး(optional)',
                   border: OutlineInputBorder(),
                 ),
               ),

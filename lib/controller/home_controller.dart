@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer' as d;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hammies_user/model/app_slider.dart';
 import 'package:hammies_user/model/real_purchase.dart';
 import 'package:hammies_user/model/reward_product.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,6 +48,7 @@ class HomeController extends GetxController {
   RxList<Expend> expendList = <Expend>[].obs;
   RxList<ExpendCategory> productCategoryList = <ExpendCategory>[].obs;
 
+  final RxList<AppSlider> sliders = <AppSlider>[].obs;
   final RxList<ProductItem> items = <ProductItem>[].obs;
   final RxList<RewardProduct> rewardItems = <RewardProduct>[].obs;
   final RxList<ProductItem> brandItems = <ProductItem>[].obs; //Brand Item
@@ -113,6 +115,10 @@ class HomeController extends GetxController {
     _database.watch(itemCollection).listen((event) {
       categoryList.value =
           event.docs.map((e) => e.data()["category"] as String).toList();
+    });
+    _database.watch(sliderCollection).listen((event) {
+      sliders.value =
+          event.docs.map((e) => AppSlider.fromJson(e.data())).toList();
     });
     /**TODO TO MOVE THIS FUNCTION ONLY IF USER IS ADMIN */
     _database.watchOrder(posPurchaseCollection).listen((event) {
@@ -248,6 +254,21 @@ class HomeController extends GetxController {
   //Delete Product Category
   Future<void> deleteProductCategory({required String pathID}) async {
     await _database.delete(productCategoryCollection, path: pathID);
+  }
+
+  //Slider
+  Future<void> addSldier({required AppSlider slider}) async {
+    await _database.write(sliderCollection,
+        data: slider.toJson(), path: slider.id);
+  }
+
+  //Delete Product Category
+  Future<void> deleteSlider({required String pathID}) async {
+    try {
+      await _database.delete(sliderCollection, path: pathID);
+    } catch (e) {
+      d.log("Delete Slider Error: $e");
+    }
   }
 
   //Add Expend Category

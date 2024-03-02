@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flex_color_picker/flex_color_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:hammies_user/controller/upload_controller.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -13,6 +17,70 @@ import '../widgets/pos/button/button.dart';
 import '../widgets/show_loading/show_loading.dart';
 import 'theme.dart';
 import 'dart:html' as html;
+
+Future<bool> colorPickerDialog(BuildContext context) async {
+  final UploadController uploadController = Get.find();
+  return ColorPicker(
+    // Use the dialogPickerColor as start color.
+    color: Colors.blue,
+    onColorChanged: (v) {},
+    // Update the dialogPickerColor using the callback.
+    onColorChangeEnd: (Color color) {
+      uploadController.colorController.add(color.value.toString());
+    },
+    width: 40,
+    height: 40,
+    borderRadius: 4,
+    spacing: 5,
+    runSpacing: 5,
+    wheelDiameter: 155,
+    heading: Text(
+      'Select color',
+      style: Theme.of(context).textTheme.subtitle1,
+    ),
+    subheading: Text(
+      'Select color shade',
+      style: Theme.of(context).textTheme.subtitle1,
+    ),
+    wheelSubheading: Text(
+      'Selected color and its shades',
+      style: Theme.of(context).textTheme.subtitle1,
+    ),
+    showMaterialName: true,
+    showColorName: true,
+    showColorCode: true,
+    copyPasteBehavior: const ColorPickerCopyPasteBehavior(
+      longPressMenu: true,
+    ),
+    materialNameTextStyle: Theme.of(context).textTheme.caption,
+    colorNameTextStyle: Theme.of(context).textTheme.caption,
+    colorCodeTextStyle: Theme.of(context).textTheme.caption,
+    pickersEnabled: const <ColorPickerType, bool>{
+      ColorPickerType.both: false,
+      ColorPickerType.primary: true,
+      ColorPickerType.accent: true,
+      ColorPickerType.bw: false,
+      ColorPickerType.custom: true,
+      ColorPickerType.wheel: true,
+    },
+  ).showPickerDialog(
+    context,
+    constraints:
+        const BoxConstraints(minHeight: 460, minWidth: 300, maxWidth: 320),
+  );
+}
+
+extension VerticalExtension on int {
+  Widget v() => SizedBox(
+        height: this + 0.0,
+      );
+}
+
+extension HorizontalExtension on int {
+  Widget h() => SizedBox(
+        width: this + 0.0,
+      );
+}
 
 var currentDateTime =
     "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}";

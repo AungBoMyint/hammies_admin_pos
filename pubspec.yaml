@@ -72,6 +72,7 @@ dependencies:
   qr_flutter: ^4.0.0
   google_sign_in: ^6.0.2
   google_sign_in_web: ^0.12.0+4
+  flex_color_picker: ^2.1.2
   #mobile_scanner: ^3.5.7
   quiver: ^3.0.1+1
   responsive_framework: ^0.1.9

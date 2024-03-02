@@ -17,6 +17,7 @@ const String itemUrl = 'item/';
 const String userCollection = 'users';
 const String profileCollection = 'profiles';
 const String itemCollection = 'items';
+const String sliderCollection = 'sliderItems';
 const String categoryCollection = "categories";
 const String posPurchaseCollection = 'posPurchases';
 const String realPurchaseCollection = 'purchases';

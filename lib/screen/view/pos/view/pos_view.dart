@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
 import 'package:hammies_user/widgets/dashboard_menu/dashboard_menu.dart';
 
-
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../controller/home_controller.dart';
@@ -35,82 +34,92 @@ class PosView extends StatelessWidget {
         if (controller.orderDetail == null) {
           return Scaffold(
             appBar: AppBar(
-              title: const Center(child: Text("Hammies  Mandalian  POS",
-              style: TextStyle(fontSize: 18,
-              letterSpacing: 2, wordSpacing: 2,
-              fontWeight: FontWeight.bold),)),
+              title: const Center(
+                  child: Text(
+                "Hammies  Mandalian  POS",
+                style: TextStyle(
+                    fontSize: 18,
+                    letterSpacing: 2,
+                    wordSpacing: 2,
+                    fontWeight: FontWeight.bold),
+              )),
             ),
-            body:
-                DashboardMenu(
-                  items: [
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.cashRegister,
-                      label: "POS",
-                      color: theme.primary,
-                      onTap: () => controller.createNewOrder(),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.boxOpen,
-                      label: "ကုန်ပစ္စည်းများ",
-                      color: Colors.green,
-                      onTap: () => Get.toNamed(productUrl),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.boxOpen,
-                      label: "ဆုလာဘ်အတွက် ကုန်ပစ္စည်းများ",
-                      color: Colors.green,
-                      onTap: () => Get.toNamed(rewardProductUrl),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.boxes,
-                      label: "ကုန်ပစ္စည်း အုပ်စုများ",
-                      color: Colors.orange,
-                      onTap: () => Get.toNamed(
-                          productCategoryUrl), // Get.to(ProductCategoryView()),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.shoppingBag,
-                      label: "အော်ဒါများ",
-                      color: Colors.orange,
-                      onTap: () => Get.toNamed(
-                          userOrderUrl), // Get.to(ProductCategoryView()),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.dollarSign,
-                      label: "အသုံးစရိတ် အုပ်စုများ",
-                      color: Colors.orange,
-                      onTap: () => Get.toNamed(
-                          expendCategoryUrl), // Get.to(ProductCategoryView()),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.searchDollar,
-                      label: "အသုံးစရိတ်",
-                      color: Colors.orange,
-                      onTap: () => Get.toNamed(
-                          expendUrl), // Get.to(ProductCategoryView()),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.boxes,
-                      label: "ကုန်ပစ္စည်း စာရင်း",
-                      color: Colors.purple,
-                      onTap: () => Get.toNamed(inventoryUrl),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.chartBar,
-                      label: "အရောင်း တိုးတက်မှု ဇယား",
-                      color: Colors.purple,
-                      onTap: () => Get.toNamed(salesUrl),
-                    ),
-                    CustomMenuItem(
-                      icon: FontAwesomeIcons.phoneAlt,
-                      label: "အကူအညီ",
-                      color: Colors.blue,
-                      onTap: () => {
-                        launch("tel://09954055655"),
-                      }, //Get.to(HelpView()),
-                    ),
-                  ],
+            body: DashboardMenu(
+              items: [
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.cashRegister,
+                  label: "POS",
+                  color: theme.primary,
+                  onTap: () => controller.createNewOrder(),
                 ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.boxOpen,
+                  label: "Sliders",
+                  color: Colors.green,
+                  onTap: () => Get.toNamed(sliderUrl),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.boxOpen,
+                  label: "ကုန်ပစ္စည်းများ",
+                  color: Colors.green,
+                  onTap: () => Get.toNamed(productUrl),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.boxOpen,
+                  label: "ဆုလာဘ်အတွက် ကုန်ပစ္စည်းများ",
+                  color: Colors.green,
+                  onTap: () => Get.toNamed(rewardProductUrl),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.boxes,
+                  label: "ကုန်ပစ္စည်း အုပ်စုများ",
+                  color: Colors.orange,
+                  onTap: () => Get.toNamed(
+                      productCategoryUrl), // Get.to(ProductCategoryView()),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.shoppingBag,
+                  label: "အော်ဒါများ",
+                  color: Colors.orange,
+                  onTap: () => Get.toNamed(
+                      userOrderUrl), // Get.to(ProductCategoryView()),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.dollarSign,
+                  label: "အသုံးစရိတ် အုပ်စုများ",
+                  color: Colors.orange,
+                  onTap: () => Get.toNamed(
+                      expendCategoryUrl), // Get.to(ProductCategoryView()),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.searchDollar,
+                  label: "အသုံးစရိတ်",
+                  color: Colors.orange,
+                  onTap: () =>
+                      Get.toNamed(expendUrl), // Get.to(ProductCategoryView()),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.boxes,
+                  label: "ကုန်ပစ္စည်း စာရင်း",
+                  color: Colors.purple,
+                  onTap: () => Get.toNamed(inventoryUrl),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.chartBar,
+                  label: "အရောင်း တိုးတက်မှု ဇယား",
+                  color: Colors.purple,
+                  onTap: () => Get.toNamed(salesUrl),
+                ),
+                CustomMenuItem(
+                  icon: FontAwesomeIcons.phoneAlt,
+                  label: "အကူအညီ",
+                  color: Colors.blue,
+                  onTap: () => {
+                    launch("tel://09954055655"),
+                  }, //Get.to(HelpView()),
+                ),
+              ],
+            ),
             //   ],
             // ),
           );
