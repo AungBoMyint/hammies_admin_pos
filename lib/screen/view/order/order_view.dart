@@ -169,7 +169,7 @@ class OrderView extends StatelessWidget {
                                     children: [
                                       Row(
                                         children: [
-                                          QrImage(
+                                          QrImageView(
                                             data: item.orderID,
                                             version: QrVersions.auto,
                                             size: 50.0,

@@ -46,13 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initMessaging() async {
     var androiInit = const AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    var iosInit = const IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
-
-    var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
+    var initSetting = InitializationSettings(android: androiInit);
 
     fltNotification = FlutterLocalNotificationsPlugin();
 
@@ -74,9 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
       icon: '@mipmap/ic_launcher',
       color: Color(0xFF0f90f3),
     );
-    var iosDetails = IOSNotificationDetails();
     var generalNotificationDetails =
-        NotificationDetails(android: androidDetails, iOS: iosDetails);
+        NotificationDetails(android: androidDetails);
     await fltNotification!.show(0, message.notification!.title ?? '',
         message.notification!.body ?? '', generalNotificationDetails,
         payload: 'Notification');
